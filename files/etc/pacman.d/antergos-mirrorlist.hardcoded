@@ -1,0 +1,3 @@
+Server = http://mirror.yandex.ru/mirrors/cinnarch/$repo/$arch
+Server = http://repo.antergos.info/$repo/$arch
+Server = http://mirrors.antergos.com/$repo/$arch

@@ -1,0 +1,6 @@
+Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
+Server = http://mirror.rol.ru/archlinux/$repo/os/$arch
+Server = http://mirrors.evowise.com/archlinux/$repo/os/$arch
+Server = http://archlinux.cu.be/$repo/os/$arch
+Server = http://k42.ch/mirror/archlinux/$repo/os/$arch
+
