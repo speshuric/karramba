@@ -15,3 +15,4 @@ rankmirrors -v /etc/pacman.d/mirrorlist
 # this doesn't work, rankmirrors doesn't work correctly with antergos-mirrorlist.pacnew
 rankmirrors -v /etc/pacman.d/antergos-mirrorlist
 # todo: check ranking in cnchi
+
