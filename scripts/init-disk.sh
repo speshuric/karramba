@@ -21,12 +21,15 @@ sudo parted --script /dev/${HDD} -- \
     name 3 swap \
     mkpart primary btrfs 32GiB 80GiB \
     name 4 root \
-    mkpart primary btrfs 80GiB -1MiB \
+    mkpart primary btrfs 80GiB 92% \
     name 5 home \
     print \
 
-ROOT_PART=sda4
+
 exit
+
+ROOT_PART=sda4
+
 # Create a new btrfs filesystem
 mkfs.btrfs /dev/${ROOT_PART}
 
