@@ -25,9 +25,9 @@ sudo parted --script /dev/${HDD} -- \
     name 5 home \
     print \
 
-sudo mkfs.ext4 /dev/sda2
-sudo mkfs.btrfs /dev/sda4
-sudo mkfs.btrfs /dev/sda5
+# sudo mkfs.ext4 /dev/sda2
+# sudo mkfs.btrfs /dev/sda4
+# sudo mkfs.btrfs /dev/sda5
 
 
 exit
