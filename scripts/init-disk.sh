@@ -6,6 +6,8 @@
 
 HDD=sda
 
+sudo partprobe /dev/${HDD}
+
 sudo parted --script /dev/${HDD} -- \
     print \
     unit MiB \
@@ -24,6 +26,8 @@ sudo parted --script /dev/${HDD} -- \
     mkpart primary btrfs 80GiB 92% \
     name 5 home \
     print \
+
+sudo partprobe /dev/${HDD}
 
 # sudo mkfs.ext4 /dev/sda2
 # sudo mkfs.btrfs /dev/sda4
