@@ -2,17 +2,37 @@
 
 #Taken from https://forums.opensuse.org/showthread.php/521277-LEAP-42-2-btrfs-root-filesystem-subvolume-structure
 
-# blkid
-# lsblck
+# use blkid or lsblck to check what disk you destroy
 
-hdd=sda3
+HDD=sda
 
+sudo parted --script /dev/${HDD} -- \
+    print \
+    unit MiB \
+    mklabel gpt \
+    mkpart primary 1MiB 4MiB \
+    set 1 bios_grub on \
+    name 1 bios_grub \
+    mkpart primary ext4 4MiB 4GiB \
+    set 2 boot on \
+    set 2 esp on \
+    name 2 boot \
+    mkpart primary linux-swap 4GiB 32GiB \
+    name 3 swap \
+    mkpart primary btrfs 32GiB 80GiB \
+    name 4 root \
+    mkpart primary btrfs 80GiB -1MiB \
+    name 5 home \
+    print \
+
+ROOT_PART=sda4
+exit
 # Create a new btrfs filesystem
-mkfs.btrfs /dev/${hdd}
+mkfs.btrfs /dev/${ROOT_PART}
 
 # Mount subvolid=0 subvolume
 mkdir -p /mnt
-mount /dev/${hdd} -o subvolid=0 /mnt
+mount /dev/${ROOT_PART} -o subvolid=0 /mnt
 
 # Create the main snapshotted subvolume of the root filesystem
 btrfs subvolume create /mnt/@
