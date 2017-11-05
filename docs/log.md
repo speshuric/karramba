@@ -84,7 +84,23 @@ sr0    11:0    1  1.9G  0 rom  /run/archiso/bootmnt
 - Увеличить `/tmp`
 - Собирать не в tmp
     
+##### chmod+x в Windows 
 
+При написании этих скриптов возникла проблемочка: писал я их частично в Windows, а в этом случае они прилетали в репозиторий не как выполняемые файлы.
+
+Решение
+```
+> git add .
+> git ls-files --stage
+100644 012c4ba239ecdbd15c70c05b9306c32175dc8c5c 0       file.sh
+> git update-index --chmod=+x file.sh
+> git commit -m "executable"
+[master c6e8134] executable
+ 1 files changed, 1 insertions(+), 1 deletion(-)
+ mode change 100644 => 100755 scripts/file.sh
+> git ls-files --stage
+100755 012c4ba239ecdbd15c70c05b9306c32175dc8c5c 0       file.sh
+```
 
 
 
