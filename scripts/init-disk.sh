@@ -3,6 +3,7 @@
 #Taken from https://forums.opensuse.org/showthread.php/521277-LEAP-42-2-btrfs-root-filesystem-subvolume-structure
 
 # blkid
+# lsblck
 
 hdd=sda3
 
