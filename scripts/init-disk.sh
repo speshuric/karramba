@@ -8,8 +8,9 @@ HDD=sda
 
 sudo partprobe /dev/${HDD}
 
+sudo parted --script /dev/${HDD} print
+
 sudo parted --script /dev/${HDD} -- \
-    print \
     unit MiB \
     mklabel gpt \
     mkpart primary 1MiB 4MiB \
@@ -29,9 +30,9 @@ sudo parted --script /dev/${HDD} -- \
 
 sudo partprobe /dev/${HDD}
 
-# sudo mkfs.ext4 /dev/sda2
-# sudo mkfs.btrfs /dev/sda4
-# sudo mkfs.btrfs /dev/sda5
+sudo mkfs.ext4 /dev/sda2
+sudo mkfs.btrfs /dev/sda4
+sudo mkfs.btrfs /dev/sda5
 
 
 exit
