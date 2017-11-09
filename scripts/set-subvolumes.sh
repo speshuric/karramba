@@ -68,5 +68,20 @@ sudo btrfs subvolume create ${TMP_MNT}/@/var/lib/pgsql
 #sudo defaultsv="$(sudo btrfs subvolume list -o ${TMP_MNT}/@/.snapshots/1 | gawk '$NF ~ "1/snapshot$" {print $2}')"
 #sudo btrfs subvolume set-default $defaultsv ${TMP_MNT}/@/.snapshots/1/snapshot
 
+#mount -o subvol=@/var/lib/libvirt/images /dev/sdb2 /mnt/newfs/var/lib/libvirt/images
+#mount -o subvol=@/var/lib/mariadb /dev/sdb2 /mnt/newfs/var/lib/mariadb
+#mount -o subvol=@/var/lib/pgsql /dev/sdb2 /mnt/newfs/var/lib/pgsql
+#mount -o subvol=@/var/lib/mysql /dev/sdb2 /mnt/newfs/var/lib/mysql
+#mount -o subvol=@/var/log /dev/sdb2 /mnt/newfs/var/log && mkdir /var/log/journal
+#chattr +C /mnt/newfs/var/lib/libvirt/images  /mnt/newfs/var/lib/mariadb /mnt/newfs/var/lib/pgsql /mnt/newfs/var/lib/mysql /var/log/journal
+
+sudo chattr +C \
+    ${TMP_MNT}/@/var/lib/libvirt/images \
+    ${TMP_MNT}/@/var/lib/mariadb \
+    ${TMP_MNT}/@/var/lib/pgsql \
+    ${TMP_MNT}/@/var/lib/mysql \
+    ${TMP_MNT}/@/var/journal
+
+
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
