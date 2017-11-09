@@ -18,7 +18,6 @@ sudo btrfs subvolume create ${TMP_MNT}/@
 
 # Create the non-snapshotted subvolumes
 
-sudo btrfs subvolume create ${TMP_MNT}/@/.snapshots
 sudo btrfs subvolume create ${TMP_MNT}/@/opt
 sudo btrfs subvolume create ${TMP_MNT}/@/srv
 sudo btrfs subvolume create ${TMP_MNT}/@/tmp
@@ -57,17 +56,17 @@ sudo btrfs subvolume create ${TMP_MNT}/@/var/lib/pgsql
 # WAT???
 # mkdir -p ${TMP_MNT}/@ && btrfs subvolume create ${TMP_MNT}/@/pkg
 
-sudo btrfs subvolume delete /tmp/mnt/var/lib/machines/
+#sudo btrfs subvolume delete /tmp/mnt/var/lib/machines/
 
 
-
+#sudo btrfs subvolume create ${TMP_MNT}/@/.snapshots
 # Create a place to keep snapshots and create an initial snapshot
-sudo mkdir ${TMP_MNT}/@/.snapshots/1
-sudo btrfs subvolume snapshot ${TMP_MNT}/@ ${TMP_MNT}/@/.snapshots/1/snapshot
+#sudo mkdir ${TMP_MNT}/@/.snapshots/1
+#sudo btrfs subvolume snapshot ${TMP_MNT}/@ ${TMP_MNT}/@/.snapshots/1/snapshot
 
 # Find the ID of the initial snapshot and set it to be the default to be mounted
-defaultsv="$(sudo btrfs subvolume list -o ${TMP_MNT}/@/.snapshots/1 | gawk '$NF ~ "1/snapshot$" {print $2}')"
-sudo btrfs subvolume set-default $defaultsv ${TMP_MNT}/@/.snapshots/1/snapshot
+#sudo defaultsv="$(sudo btrfs subvolume list -o ${TMP_MNT}/@/.snapshots/1 | gawk '$NF ~ "1/snapshot$" {print $2}')"
+#sudo btrfs subvolume set-default $defaultsv ${TMP_MNT}/@/.snapshots/1/snapshot
 
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
