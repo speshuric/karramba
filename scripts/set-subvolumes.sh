@@ -75,14 +75,14 @@ sudo btrfs subvolume create ${TMP_MNT}/@/var/lib/pgsql
 #mount -o subvol=@/var/log /dev/sdb2 /mnt/newfs/var/log && mkdir /var/log/journal
 #chattr +C /mnt/newfs/var/lib/libvirt/images  /mnt/newfs/var/lib/mariadb /mnt/newfs/var/lib/pgsql /mnt/newfs/var/lib/mysql /var/log/journal
 
-mkdir ${TMP_MNT}/@/var/journal
+sudo mkdir ${TMP_MNT}/@/var/log/journal
 
 sudo chattr +C \
     ${TMP_MNT}/@/var/lib/libvirt/images \
     ${TMP_MNT}/@/var/lib/mariadb \
     ${TMP_MNT}/@/var/lib/pgsql \
     ${TMP_MNT}/@/var/lib/mysql \
-    ${TMP_MNT}/@/var/journal
+    ${TMP_MNT}/@/var/log/journal
 
 
 # Finished - unmount complete filesystem
