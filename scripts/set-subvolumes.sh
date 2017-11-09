@@ -67,7 +67,7 @@ sudo btrfs subvolume snapshot ${TMP_MNT}/@ ${TMP_MNT}/@/.snapshots/1/snapshot
 
 # Find the ID of the initial snapshot and set it to be the default to be mounted
 defaultsv="$(sudo btrfs subvolume list -o ${TMP_MNT}/@/.snapshots/1 | gawk '$NF ~ "1/snapshot$" {print $2}')"
-btrfs subvolume set-default $defaultsv ${TMP_MNT}/@/.snapshots/1/snapshot
+sudo btrfs subvolume set-default $defaultsv ${TMP_MNT}/@/.snapshots/1/snapshot
 
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
