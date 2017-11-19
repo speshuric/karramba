@@ -87,3 +87,5 @@ sudo chattr +C \
 
 # Finished - unmount complete filesystem
 sudo umount ${TMP_MNT}
+
+#TODO Исправить calamares
