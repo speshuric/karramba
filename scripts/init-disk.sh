@@ -4,8 +4,6 @@
 
 HDD=sda
 
-sudo su
-
 partprobe /dev/${HDD}
 
 parted --script /dev/${HDD} print
