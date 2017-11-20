@@ -28,7 +28,8 @@ sudo parted --script /dev/${HDD} -- \
 
 sudo partprobe /dev/${HDD}
 
-sudo mkfs.ext4 /dev/sda2
-sudo mkfs.btrfs /dev/sda4
-sudo mkfs.btrfs /dev/sda5
+sudo mkfs.ext4 /dev/sda2 -L boot
+sudo mkfs.btrfs /dev/sda4 -L root
+sudo mkfs.btrfs /dev/sda5 -L home
+sudo mkswap /dev/sda3 -L swap
 
