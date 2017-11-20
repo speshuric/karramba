@@ -5,7 +5,6 @@
 HDD=sda
 
 partprobe /dev/${HDD}
-
 parted --script /dev/${HDD} print
 
 parted --script /dev/${HDD} -- \
@@ -120,3 +119,4 @@ umount ${TMP_MNT}
 
 #TODO Исправить calamares
 
+#genfstab -U /mnt >> /mnt/etc/fstab
