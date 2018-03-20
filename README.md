@@ -5,7 +5,7 @@ Some home install scripts. Probably you don't need it, but you can use it.
 
 ## Download
 
-Downloar this repo and `aui`
+Download this repo and `aui`
 
 ```bash
 wget https://gitlab.com/speshuric/karramba/repository/master/archive.tar.gz -O - | tar xz && mv karramba-* karramba
