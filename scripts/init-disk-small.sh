@@ -14,11 +14,11 @@ parted --script /dev/${HDD} -- \
     set 1 bios_grub on \
     name 1 bios_grub \
     mkpart primary linux-swap 4MiB 6GiB \
-    name 3 swap \
+    name 2 swap \
     mkpart primary btrfs 6GiB 50GiB \
-    name 4 root \
+    name 3 root \
     mkpart primary btrfs 50GiB 92% \
-    name 5 home \
+    name 4 home \
     print \
 
 partprobe /dev/${HDD}
