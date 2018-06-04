@@ -23,8 +23,8 @@ parted --script /dev/${HDD} -- \
 
 partprobe /dev/${HDD}
 
-mkswap /dev/${HDD}2 -L swap
-mkfs.btrfs /dev/${HDD}3 -L root
-mkfs.btrfs /dev/${HDD}4 -L home
+mkswap /dev/${HDD}2 -fL swap
+mkfs.btrfs /dev/${HDD}3 -fL root
+mkfs.btrfs /dev/${HDD}4 -fL home
 
 #Idea taken from https://forums.opensuse.org/showthread.php/521277-LEAP-42-2-btrfs-root-filesystem-subvolume-structure
