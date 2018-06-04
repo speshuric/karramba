@@ -28,4 +28,3 @@ mkfs.btrfs /dev/${HDD}3 -L root
 mkfs.btrfs /dev/${HDD}4 -L home
 
 #Idea taken from https://forums.opensuse.org/showthread.php/521277-LEAP-42-2-btrfs-root-filesystem-subvolume-structure
-
