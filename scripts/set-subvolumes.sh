@@ -9,7 +9,7 @@ fi
 # - https://forums.opensuse.org/showthread.php/521277-LEAP-42-2-btrfs-root-filesystem-subvolume-structure
 # - installed OpenSuse fstab
 
-ROOT_PART=sda4
+ROOT_PART=sda5
 
 # Create a new btrfs filesystem
 # mkfs.btrfs /dev/${ROOT_PART}
