@@ -34,7 +34,7 @@ parted --script /dev/${HDD} -- \
 
 partprobe /dev/${HDD}
 
-mkfs.ext4 /dev/${HDD}3  -L boot
+mkfs.ext4 /dev/${HDD}3  -F -L boot
 mkswap /dev/${HDD}4     -L swap
 mkfs.btrfs /dev/${HDD}5 -f -L root
 mkfs.btrfs /dev/${HDD}6 -f -L home
