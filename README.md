@@ -10,8 +10,14 @@ Download this repo and `aui`
 ```bash
 wget https://gitlab.com/speshuric/karramba/repository/master/archive.tar.gz -O - | tar xz && mv karramba-* karramba
 wget https://github.com/helmuthdu/aui/tarball/master -O - | tar xz && mv helmuthdu-aui-* aui 
-
 ```
+
+clone
+```bash
+sudo pacman -Sy git && git clone https://gitlab.com/speshuric/karramba.git
+```
+
+
 ## Source code
 
 To edit: `git clone https://gitlab.com/speshuric/karramba.git`

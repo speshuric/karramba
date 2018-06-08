@@ -2,6 +2,11 @@
 
 # use blkid or lsblck to check what disk you destroy
 
+if [ "$(whoami)" != "root" ]; then
+	echo "Root privileges required"
+	exit 1
+fi
+
 HDD=sda
 
 partprobe /dev/${HDD}
