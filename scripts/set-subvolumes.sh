@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 if [ "$(whoami)" != "root" ]; then
 	echo "Root privileges required"
