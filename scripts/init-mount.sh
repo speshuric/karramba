@@ -8,6 +8,7 @@ fi
 ROOT_PART=sda5
 MNT=/mnt
 
+mkdir -p ${MNT}           && mount -o subvol=@/          /dev/${ROOT_PART} ${MNT}
 mkdir -p ${MNT}/opt       && mount -o subvol=@/opt       /dev/${ROOT_PART} ${MNT}/opt
 mkdir -p ${MNT}/srv       && mount -o subvol=@/srv       /dev/${ROOT_PART} ${MNT}/srv
 mkdir -p ${MNT}/tmp       && mount -o subvol=@/tmp       /dev/${ROOT_PART} ${MNT}/tmp
