@@ -97,25 +97,25 @@ chattr +C \
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
 
-mount -o subvol=@/opt       /dev/${ROOT_PART} ${MNT}/opt
-mount -o subvol=@/srv       /dev/${ROOT_PART} ${MNT}/srv
-mount -o subvol=@/tmp       /dev/${ROOT_PART} ${MNT}/tmp
-mount -o subvol=@/usr/local /dev/${ROOT_PART} ${MNT}/usr/local
+mkdir ${MNT}/opt       && mount -o subvol=@/opt       /dev/${ROOT_PART} ${MNT}/opt
+mkdir ${MNT}/srv       && mount -o subvol=@/srv       /dev/${ROOT_PART} ${MNT}/srv
+mkdir ${MNT}/tmp       && mount -o subvol=@/tmp       /dev/${ROOT_PART} ${MNT}/tmp
+mkdir ${MNT}/usr/local && mount -o subvol=@/usr/local /dev/${ROOT_PART} ${MNT}/usr/local
 
-mount -o subvol=@/var/cache /dev/${ROOT_PART} ${MNT}/var/cache
-mount -o subvol=@/var/crash /dev/${ROOT_PART} ${MNT}/var/crash
-mount -o subvol=@/var/log   /dev/${ROOT_PART} ${MNT}/var/log
-mount -o subvol=@/var/opt   /dev/${ROOT_PART} ${MNT}/var/opt
-mount -o subvol=@/var/spool /dev/${ROOT_PART} ${MNT}/var/spool
-mount -o subvol=@/var/tmp   /dev/${ROOT_PART} ${MNT}/var/tmp
-mount -o subvol=@/var/abs   /dev/${ROOT_PART} ${MNT}/var/abs
+mkdir ${MNT}/var/cache && mount -o subvol=@/var/cache /dev/${ROOT_PART} ${MNT}/var/cache
+mkdir ${MNT}/var/crash && mount -o subvol=@/var/crash /dev/${ROOT_PART} ${MNT}/var/crash
+mkdir ${MNT}/var/log   && mount -o subvol=@/var/log   /dev/${ROOT_PART} ${MNT}/var/log
+mkdir ${MNT}/var/opt   && mount -o subvol=@/var/opt   /dev/${ROOT_PART} ${MNT}/var/opt
+mkdir ${MNT}/var/spool && mount -o subvol=@/var/spool /dev/${ROOT_PART} ${MNT}/var/spool
+mkdir ${MNT}/var/tmp   && mount -o subvol=@/var/tmp   /dev/${ROOT_PART} ${MNT}/var/tmp
+mkdir ${MNT}/var/abs   && mount -o subvol=@/var/abs   /dev/${ROOT_PART} ${MNT}/var/abs
 
-mount -o subvol=@/var/lib/libvirt/images /dev/${ROOT_PART} ${MNT}/var/lib/libvirt/images
-mount -o subvol=@/var/lib/machines /dev/${ROOT_PART} ${MNT}/var/lib/machines
-mount -o subvol=@/var/lib/mailman  /dev/${ROOT_PART} ${MNT}/var/lib/mailman
-mount -o subvol=@/var/lib/mariadb  /dev/${ROOT_PART} ${MNT}/var/lib/mariadb
-mount -o subvol=@/var/lib/mysql    /dev/${ROOT_PART} ${MNT}/var/lib/mysql
-mount -o subvol=@/var/lib/named    /dev/${ROOT_PART} ${MNT}/var/lib/named
-mount -o subvol=@/var/lib/pgsql    /dev/${ROOT_PART} ${MNT}/var/lib/pgsql
+mkdir ${MNT}/var/lib/libvirt/images && mount -o subvol=@/var/lib/libvirt/images /dev/${ROOT_PART} ${MNT}/var/lib/libvirt/images
+mkdir ${MNT}/var/lib/machines && mount -o subvol=@/var/lib/machines /dev/${ROOT_PART} ${MNT}/var/lib/machines
+mkdir ${MNT}/var/lib/mailman  && mount -o subvol=@/var/lib/mailman  /dev/${ROOT_PART} ${MNT}/var/lib/mailman
+mkdir ${MNT}/var/lib/mariadb  && mount -o subvol=@/var/lib/mariadb  /dev/${ROOT_PART} ${MNT}/var/lib/mariadb
+mkdir ${MNT}/var/lib/mysql    && mount -o subvol=@/var/lib/mysql    /dev/${ROOT_PART} ${MNT}/var/lib/mysql
+mkdir ${MNT}/var/lib/named    && mount -o subvol=@/var/lib/named    /dev/${ROOT_PART} ${MNT}/var/lib/named
+mkdir ${MNT}/var/lib/pgsql    && mount -o subvol=@/var/lib/pgsql    /dev/${ROOT_PART} ${MNT}/var/lib/pgsql
 
 
