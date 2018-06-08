@@ -28,3 +28,9 @@ mkdir -p ${MNT}/var/lib/mariadb  && mount -o subvol=@/var/lib/mariadb  /dev/${RO
 mkdir -p ${MNT}/var/lib/mysql    && mount -o subvol=@/var/lib/mysql    /dev/${ROOT_PART} ${MNT}/var/lib/mysql
 mkdir -p ${MNT}/var/lib/named    && mount -o subvol=@/var/lib/named    /dev/${ROOT_PART} ${MNT}/var/lib/named
 mkdir -p ${MNT}/var/lib/pgsql    && mount -o subvol=@/var/lib/pgsql    /dev/${ROOT_PART} ${MNT}/var/lib/pgsql
+
+BOOT_PART=sda3
+mkdir -p ${MNT}/boot    && mount /dev/${BOOT_PART} ${MNT}/boot
+
+HOME_PART=sda6
+mkdir -p ${MNT}/home    && mount /dev/${HOME_PART} ${MNT}/home
