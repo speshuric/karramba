@@ -16,7 +16,6 @@ ROOT_PART=sda5
 
 # Mount subvolid=0 subvolume to temp mount
 TMP_MNT=/tmp/mnt
-MNT=/mnt
 mkdir -p ${TMP_MNT}
 mount /dev/${ROOT_PART} -o subvolid=0 ${TMP_MNT}
 ############################
@@ -99,3 +98,15 @@ umount ${TMP_MNT}
 
 
 
+HOME_PART=sda6
+
+# Create a new btrfs filesystem
+# mkfs.btrfs /dev/${HOME_PART}
+
+# Mount subvolid=0 subvolume to temp mount
+TMP_MNT=/tmp/mnt
+mkdir -p ${TMP_MNT}
+mount /dev/${HOME_PART} -o subvolid=0 ${TMP_MNT}
+############################
+
+btrfs subvolume create ${TMP_MNT}/@home
