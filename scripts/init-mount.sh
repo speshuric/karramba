@@ -34,4 +34,4 @@ BOOT_PART=sda3
 mkdir -p ${MNT}/boot    && mount /dev/${BOOT_PART} ${MNT}/boot
 
 HOME_PART=sda6
-mkdir -p ${MNT}/home    && mount /dev/${HOME_PART} ${MNT}/home
+mkdir -p ${MNT}/home    && mount -o subvol=@home/        /dev/${HOME_PART} ${MNT}/home

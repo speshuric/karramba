@@ -96,8 +96,6 @@ chattr +C \
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
 
-
-
 HOME_PART=sda6
 
 # Create a new btrfs filesystem
@@ -110,3 +108,6 @@ mount /dev/${HOME_PART} -o subvolid=0 ${TMP_MNT}
 ############################
 
 btrfs subvolume create ${TMP_MNT}/@home
+
+# Finished - unmount complete filesystem
+umount ${TMP_MNT}
