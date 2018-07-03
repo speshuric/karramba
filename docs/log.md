@@ -194,7 +194,7 @@ sr0    11:0    1  1.9G  0 rom  /run/archiso/bootmnt
 100755 012c4ba239ecdbd15c70c05b9306c32175dc8c5c 0       file.sh
 ```
 
-
-
+##### Установка wifi
+https://forum.manjaro.org/t/broadcom-bcm4360-wifi-not-working/2141
 
 
