@@ -92,6 +92,7 @@ chattr +C \
     ${TMP_MNT}/@/var/lib/mysql \
     ${TMP_MNT}/@/var/log/journal
 
+btrfs subvolume set-default ${TMP_MNT}/@
 
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
