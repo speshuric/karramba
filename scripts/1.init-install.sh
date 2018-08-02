@@ -11,3 +11,4 @@ sudo pacman-mirrors --fasttrack --api --protocol https --timeout 1
 
 # для установщика manjaro
 touch /tmp/.btrfsroot
+

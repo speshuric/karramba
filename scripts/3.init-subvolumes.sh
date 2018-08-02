@@ -69,8 +69,9 @@ btrfs subvolume create ${TMP_MNT}/@/var/lib/pgsql
 btrfs subvolume create ${TMP_MNT}/@/.snapshots
 
 # Create a place to keep snapshots and create an initial snapshot
-#mkdir ${TMP_MNT}/@/.snapshots/1
-#btrfs subvolume snapshot ${TMP_MNT}/@ ${TMP_MNT}/@/.snapshots/1/snapshot
+mkdir ${TMP_MNT}/@/.snapshots/1
+btrfs subvolume snapshot ${TMP_MNT}/@ ${TMP_MNT}/@/.snapshots/1/snapshot
+#btrfs subvolume set-default ${TMP_MNT}/@/.snapshots/1/snapshot ${TMP_MNT}/@/.snapshots/1/snapshot
 
 # Find the ID of the initial snapshot and set it to be the default to be mounted
 #defaultsv="$(btrfs subvolume list -o ${TMP_MNT}/@/.snapshots/1 | gawk '$NF ~ "1/snapshot$" {print $2}')"
@@ -92,7 +93,7 @@ chattr +C \
     ${TMP_MNT}/@/var/lib/mysql \
     ${TMP_MNT}/@/var/log/journal
 
-btrfs subvolume set-default ${TMP_MNT}/@
+#btrfs subvolume set-default ${TMP_MNT}/@
 
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
