@@ -72,6 +72,7 @@ btrfs subvolume create ${TMP_MNT}/@/.snapshots
 mkdir ${TMP_MNT}/@/.snapshots/1
 btrfs subvolume snapshot ${TMP_MNT}/@ ${TMP_MNT}/@/.snapshots/1/snapshot
 #btrfs subvolume set-default ${TMP_MNT}/@/.snapshots/1/snapshot ${TMP_MNT}/@/.snapshots/1/snapshot
+btrfs subvolume set-default ${TMP_MNT}/@/.snapshots/1/snapshot
 
 # Find the ID of the initial snapshot and set it to be the default to be mounted
 #defaultsv="$(btrfs subvolume list -o ${TMP_MNT}/@/.snapshots/1 | gawk '$NF ~ "1/snapshot$" {print $2}')"
