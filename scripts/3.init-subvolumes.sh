@@ -32,7 +32,7 @@ btrfs subvolume create ${TMP_MNT}/@/tmp
 btrfs subvolume create ${TMP_MNT}/@/root
 mkdir -p ${TMP_MNT}/@/usr && btrfs subvolume create ${TMP_MNT}/@/usr/local
 btrfs subvolume create ${TMP_MNT}/@/var
-btrfs subvolume create ${TMP_MNT}/@/.snapshots
+#btrfs subvolume create ${TMP_MNT}/@/.snapshots
 # Create a place to keep snapshots and create an initial snapshot
 #mkdir ${TMP_MNT}/@/.snapshots/1
 btrfs subvolume set-default ${TMP_MNT}/@
