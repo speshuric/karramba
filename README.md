@@ -14,7 +14,7 @@ wget https://github.com/helmuthdu/aui/tarball/master -O - | tar xz && mv helmuth
 
 clone
 ```bash
-sudo pacman -Sy git && git clone https://gitlab.com/speshuric/karramba.git
+sudo pacman -Sy git && git clone https://gitlab.com/speshuric/karramba.git && cd karramba/scripts
 ```
 
 
