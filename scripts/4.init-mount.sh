@@ -8,12 +8,12 @@ fi
 ROOT_PART=sda5
 MNT=/mnt
 
-mkdir -p ${MNT}           && mount -o subvol=@/          /dev/${ROOT_PART} ${MNT}
-mkdir -p ${MNT}/opt       && mount -o subvol=@/opt       /dev/${ROOT_PART} ${MNT}/opt
-mkdir -p ${MNT}/srv       && mount -o subvol=@/srv       /dev/${ROOT_PART} ${MNT}/srv
-mkdir -p ${MNT}/tmp       && mount -o subvol=@/tmp       /dev/${ROOT_PART} ${MNT}/tmp
-mkdir -p ${MNT}/root      && mount -o subvol=@/root      /dev/${ROOT_PART} ${MNT}/root
-mkdir -p ${MNT}/usr/local && mount -o subvol=@/usr/local /dev/${ROOT_PART} ${MNT}/usr/local
+mkdir -p ${MNT}           && mount -o                            /dev/${ROOT_PART} ${MNT}
+mkdir -p ${MNT}/opt       && mount -o subvol=@/opt               /dev/${ROOT_PART} ${MNT}/opt
+mkdir -p ${MNT}/srv       && mount -o subvol=@/srv               /dev/${ROOT_PART} ${MNT}/srv
+mkdir -p ${MNT}/tmp       && mount -o subvol=@/tmp               /dev/${ROOT_PART} ${MNT}/tmp
+mkdir -p ${MNT}/root      && mount -o subvol=@/root -o nodatacow /dev/${ROOT_PART} ${MNT}/root
+mkdir -p ${MNT}/usr/local && mount -o subvol=@/usr/local         /dev/${ROOT_PART} ${MNT}/usr/local
 
 mkdir -p ${MNT}/var       && mount -o subvol=@/var       /dev/${ROOT_PART} ${MNT}/var
 
