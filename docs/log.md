@@ -12,6 +12,25 @@ TODOS:
 + [ ] Причесать лирику
 + [ ] Надо чтобы скрипт скачивался одной строкой запуска в live antergos/manjaro
 
+## Important!!!
+Так! Короче! Я передумал! Ставить будем не ебанутыми скриптами, а через ansible. 
+
+Краткая идея: есть инсталляционная флешка или образ arch или manjaro. Грузимся, запускаем сеть, даём ssh и... И всё остальное делает снаружи playbook ansible.
+
+Засады и примечания:
+
+**Засада** Ansible надо поставить на хост. Хост - винда. 
+Решение: ставим [MSYS2](https://www.msys2.org/) а в нём 
+```
+pip install ansible
+```
+Решение взято [тут](https://superuser.com/questions/1255634/install-ansible-in-windows-using-git-bash)
+
+**Информация** Предшественники
+
+
+
+
 ## TLDR
 
 - Почему btrfs подходит для решения этой задачи
@@ -225,3 +244,5 @@ https://forum.manjaro.org/t/broadcom-bcm4360-wifi-not-working/2141
 - [Как обновлять список зеркал](https://antergos.com/wiki/uncategorized/how-to-choose-your-mirrors-before-installing-antergos/), на [русском](https://antergos.com/wiki/ru/uncategorized/how-to-choose-your-mirrors-before-installing-antergos/) не смотрите, сломаете глаз
 - [Как выбирать быстрые зеркала](http://unixa.ru/korotko-o-glavnom-./arch-rankmirrors-ili-delaem-mirrorlist-aktualnyim-i-byistryim.html)
 - [Оригинальная документация Arch](https://wiki.archlinux.org/index.php/mirrors)
+
+
