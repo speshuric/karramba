@@ -1,8 +1,8 @@
 # Моментальные снимки и восстановление к ним: Linux+BTRFS+Snapper
 *Как перестать бояться экспериментировать с системой*
 
->жена: ложись сегодня спать пораньшне
-я: /качая арч линукс/ ок
+> жена: ложись сегодня спать пораньше
+> я: /качая арч линукс/ ок
 
 https://bash.im/quote/451399
 
@@ -13,6 +13,7 @@ TODOS:
 + [ ] Надо чтобы скрипт скачивался одной строкой запуска в live antergos/manjaro
 
 ## Important!!!
+
 Так! Короче! Я передумал! Ставить будем не ебанутыми скриптами, а через ansible. 
 
 Краткая идея: есть инсталляционная флешка или образ arch или manjaro. Грузимся, запускаем сеть, даём ssh и... И всё остальное делает снаружи playbook ansible.
@@ -20,15 +21,69 @@ TODOS:
 Засады и примечания:
 
 **Засада** Ansible надо поставить на хост. Хост - винда. 
-Решение: ставим [MSYS2](https://www.msys2.org/) а в нём 
-```
-pip install ansible
-```
+
+Решение: 
+1. Лучше использовать WSL
+2. Ставим [MSYS2](https://www.msys2.org/) а в нём уж ставим ansible
+3. Скрипт установки ansible берем [тут - file-python3-install-ansible-on-msys2-sh](https://gist.github.com/DaveB93/db94a6b310e08c928c0778f766562ab0#file-python3-install-ansible-on-msys2-sh)
+4. Если в путях по умолчанию есть пробелы, то нужен явный конфигурационный файл 
+
 Решение взято [тут](https://superuser.com/questions/1255634/install-ansible-in-windows-using-git-bash)
+
+**Засада** Ansible расчитан на работу с ssh-ключами. 
+
+Это правильно и разумно, безусловно. Только вот засада - в штатном дистрибутиве нет ключа. Варианты решения:
+1. Изменять все дистрибутивы. Ну... так себе перспектива.
+2. Просто хардкодить пароль. Ну... 
+3. Передавать его через vault - лучше, но еще не айс
+4. 3+Первым шагом подсунуть ssh-ключ.
+
+Кажется самый разумный - 3, но я еще посмотрю.
+
+Что и как надо делать:
+1. Если ругается `to use the 'ssh' connection type with passwords, you must install the sshpass program`, то надо установить `sshpass` (`pacman -S sshpass` или `apt-get install sshpass`)
+2. ...
+
+**Засада** Ansible не работает с путями home содержащими пробелы
+
+[баг](https://github.com/ansible/ansible/issues/47022), [баг](https://github.com/ansible/ansible/issues/32166)
+
+Решение не окончательное: 
+меняем 
+```python
+                b_args = (b"-o", b"ControlPath=" + to_bytes(self.control_path % dict(directory=cpdir), errors='surrogate_or_strict'))
+```
+на 
+```python
+                b_args = (b"-o", b"ControlPath=" + to_bytes("\"" + (self.control_path % dict(directory=cpdir)) + "\"", errors='surrogate_or_strict'))
+```
+
+Это не очень правильно. 
+
+**Засада** упс! "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host"
+
+И при каждой установке он может быть разный.
+
+
 
 **Информация** Предшественники
 
+Я, конечно, не то чтобы первый додумался до этой идеи. Ну точнее так: я не нашёл готового решения, но многое подсмотрел.
 
+1. Arch можно ([1](https://unix.stackexchange.com/questions/352139/how-to-setup-ssh-access-to-arch-linux-iso-livecd-booted-computer), [2](https://wiki.archlinux.org/index.php/Install_from_SSH_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9))) ставить с SSH.
+2. C manjaro чуть по-другому. Там надо менять пароль и подключаться под юзером `manjaro`. 
+```
+$ sudo passwd manjaro
+$ sudo systemctl start sshd.service
+```
+3. Идея развертываться Ansible тоже уже протоптана: 
+    - [Тут](https://github.com/pigmonkey/spark) чувак делает постинсталл на Ansible (но мне-то надо с бутстрапа и с партиций) .https://pig-monkey.com/2015/12/spark/
+    - [Тут](https://github.com/dharmab/ansible-archlinux/tree/master/roles/archlinux) вообще что-то левое
+    - Прикольная [дискусия](https://www.reddit.com/r/archlinux/comments/2r2kl9/how_do_you_automate_your_reinstalls/)
+    - Но таки надо отметить, что playbook'и которые я нашёл &ndash; это постинсталлы. А мне нужно разметку диска и всё такое.
+4. В ansible есть и работа с дисками и пакман и вообще, но я подозреваю, что писать плагин придётся.
+
+-----
 
 
 ## TLDR
