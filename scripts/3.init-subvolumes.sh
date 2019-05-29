@@ -11,12 +11,13 @@ fi
 # - https://en.opensuse.org/SDB:BTRFS#Default_Subvolumes
 
 ROOT_PART=sda5
+TMP_MNT=/tmp/mnt
 
 # Create a new btrfs filesystem
 # mkfs.btrfs /dev/${ROOT_PART}
 
 # Mount subvolid=0 subvolume to temp mount
-TMP_MNT=/tmp/mnt
+
 mkdir -p ${TMP_MNT}
 mount /dev/${ROOT_PART} -o subvolid=0 ${TMP_MNT}
 ############################
@@ -37,18 +38,15 @@ btrfs subvolume create ${TMP_MNT}/@/.snapshots
 #mkdir ${TMP_MNT}/@/.snapshots/1
 btrfs subvolume set-default ${TMP_MNT}/@
 
-# boot is another partition - do not create subvolumes
+# /boot in separate partition - do not create subvolumes
 # mkdir -p ${TMP_MNT}/@/boot/grub2 && \
 # btrfs subvolume create ${TMP_MNT}/@/boot/grub2/i386-pc && \
 # btrfs subvolume create ${TMP_MNT}/@/boot/grub2/x86_64-efi
-
-
 
 # https://wiki.archlinux.org/index.php/Snapper:
 # Keeping many of snapshots for a large timeframe on a busy filesystem like /, where many system updates happen over
 # time, can cause serious slowdowns. You can prevent it by:
 # Creating subvolumes for things that are not worth being snapshotted, like /var/cache/pacman/pkg, /var/abs, /var/tmp, and /srv
-
 
 # WAT???
 # mkdir -p ${TMP_MNT}/@ && btrfs subvolume create ${TMP_MNT}/@/pkg
