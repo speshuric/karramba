@@ -21,7 +21,7 @@ reflector --verbose --connection-timeout 1 --cache-timeout 1 -a 1 -l 50 -p https
 echo "Install git"
 pacman -Sy --noconfirm git
 
-if !(systemctl is-active --quiet sshd.service)
+if ! [systemctl is-active --quiet sshd.service]; then
     echo "Set root password"
     passwd
 
