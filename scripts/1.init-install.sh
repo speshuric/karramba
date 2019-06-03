@@ -24,13 +24,15 @@ pacman -Sy git
 if !(systemctl is-active --quiet sshd.service)
     echo "Set root password"
     passwd
+	
+    echo "Start ssh"
+    systemctl start sshd.service
+
+    echo "ip adrr"
+    ip -4 address | grep global
 fi
 
-echo "Start ssh"
-systemctl start sshd.service
 
-echo "ip adrr"
-ip -4 address | grep global
 
 
 # для установщика manjaro
