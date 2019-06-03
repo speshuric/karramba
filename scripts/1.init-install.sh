@@ -21,8 +21,10 @@ reflector --verbose --connection-timeout 1 -a 1 -l 50 -p https --sort rate --sav
 echo "Install git"
 pacman -Sy git
 
-echo "Set root password"
-passwd
+if !(systemctl is-active --quiet sshd.service)
+    echo "Set root password"
+    passwd
+fi
 
 echo "Start ssh"
 systemctl start sshd.service

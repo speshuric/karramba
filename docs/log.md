@@ -38,6 +38,8 @@ ssh root@192.168.0.xxx -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/nu
 
 ## Скачать скрипты
 
+Не забывать делать push в репозиторий перед скачиванием!
+
 ```bash
 wget https://github.com/speshuric/karramba/tarball/master -O - | tar xz 
 mv speshuric-karramba-* karramba 

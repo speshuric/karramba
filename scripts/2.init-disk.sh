@@ -23,13 +23,13 @@ parted --script /dev/${HDD} print
 # sda5 - root      - ~160 GiB - btrfs root "/" partition (for snapper), should be enough
 # sda6 - home      - rest of drive - btrfs "/home" partition. last 8% of SSD are reserved
 
-Number  Start   End     Size    File system     Name       Flags
- 1      1049kB  4194kB  3146kB                  bios_grub  bios_grub
- 2      4194kB  537MB   533MB                   esp        boot, esp
- 3      537MB   5369MB  4832MB  ext4            boot
- 4      5369MB  34.4GB  29.0GB  linux-swap(v1)  swap
- 5      34.4GB  193GB   159GB   btrfs           root
- 6      193GB   1472GB  1279GB  btrfs
+# Number  Start   End     Size    File system     Name       Flags
+#  1      1049kB  4194kB  3146kB                  bios_grub  bios_grub
+#  2      4194kB  537MB   533MB                   esp        boot, esp
+#  3      537MB   5369MB  4832MB  ext4            boot
+#  4      5369MB  34.4GB  29.0GB  linux-swap(v1)  swap
+#  5      34.4GB  193GB   159GB   btrfs           root
+#  6      193GB   1472GB  1279GB  btrfs
 
 
 parted --script /dev/${HDD} -- \
