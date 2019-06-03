@@ -13,18 +13,18 @@ echo "Add space for tools"
 mount -o remount,size=2G /run/archiso/cowspace
 
 echo "Install reflector"
-pacman -Sy reflector
+pacman -Sy --noconfirm reflector
 
 echo "Configure Mirrorlist"
-reflector --verbose --connection-timeout 1 -a 1 -l 50 -p https --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose --connection-timeout 1 --cache-timeout 1 -a 1 -l 50 -p https --sort rate --save /etc/pacman.d/mirrorlist
 
 echo "Install git"
-pacman -Sy git
+pacman -Sy --noconfirm git
 
 if !(systemctl is-active --quiet sshd.service)
     echo "Set root password"
     passwd
-	
+
     echo "Start ssh"
     systemctl start sshd.service
 
