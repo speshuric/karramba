@@ -16,7 +16,7 @@ echo "Install reflector"
 pacman -Sy reflector
 
 echo "Configure Mirrorlist"
-reflector --verbose -a 10 -l 50 -p https --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose --connection-timeout 1 -a 1 -l 50 -p https --sort rate --save /etc/pacman.d/mirrorlist
 
 echo "Install git"
 pacman -Sy git

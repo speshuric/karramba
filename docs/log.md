@@ -12,7 +12,50 @@ TODOS:
 + [ ] Причесать лирику
 + [ ] Надо чтобы скрипт скачивался одной строкой запуска в live antergos/manjaro
 
-## Important!!!
+## Установка по SSH
+
+1. Arch можно ставить через SSH ([1](https://unix.stackexchange.com/questions/352139/how-to-setup-ssh-access-to-arch-linux-iso-livecd-booted-computer), [2](https://wiki.archlinux.org/index.php/Install_from_SSH_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9))) .
+```bash
+# выполняется под root потому что ничего другого в Arch ISO нет
+passwd manjaro
+systemctl start sshd.service
+```
+2. C manjaro чуть по-другому. Там надо менять пароль и подключаться под пользователем `manjaro`. 
+```bash
+# от имени пользователя "manjaro"
+sudo passwd manjaro
+sudo systemctl start sshd.service
+```
+3. Проверить адрес: *TODO: Проверить, можно ли правильнее*
+```bash
+ip -4 address | grep global
+```
+4. После этого можно цепляться к SSH, я делаю это через WSL, а не putty *TODO: обосновать*
+5. Строгая проверка хоста со стандартным ISO невозможна *TODO: проверить*. Поэтому `StrictHostKeyChecking=no` и `UserKnownHostsFile=/dev/null`:
+```bash
+ssh root@192.168.0.xxx -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
+
+## Скачать скрипты
+
+```bash
+wget https://github.com/speshuric/karramba/tarball/master -O - | tar xz 
+mv speshuric-karramba-* karramba 
+cd ./karramba/scripts
+```
+
+Shorter: 
+```bash
+wget https://git.io/fjRjE -O - | tar xz 
+
+mv speshuric-karramba-* karramba 
+cd ./karramba/scripts
+./1.init-install.sh
+```
+
+
+
+## Important!!! Всё ниже шлак и черновики
 
 Так! Короче! Я передумал! Ставить будем не ебанутыми скриптами, а через ansible. 
 
@@ -132,6 +175,8 @@ $ sudo systemctl start sshd.service
 Для облегчения установки есть шаблоны скриптов установки.
 
 ### Клоны-установщики (Anarchy linux, Antergos и подобные)
+
+RIP Antergos
 
 В семействе Arch есть несколько дистрибутивов, которые сложно назвать дистрибутивами. Live образ, темы графических оболочек и графический установщик - вот и весь тот дистрибутив. У одних установщик получше, у других похуже. С другой стороны - примерно это и надо для комфортной установки Arch: установка больше не похожа на смесь призыва злых духов и приготовления хлеба, если есть только молоток, нож и лопата. После установки такой дистрибутив живет почти-почти как обычный Arch, а значит применима его богатая документация, хотя в Arch постоянно подчеркивают, что если ты поставил из установщика и не понял, как и что он сделал, то это не "тру арч уэй".
 
