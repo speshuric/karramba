@@ -7,11 +7,21 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-HDD=sda
+#    .---------- constant part!
+#    vvvv vvvv-- the code from above
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GRN='\033[1;32m'
 
+
+HDD=sda
+echo "${GRN}Default drive ${NC} ${HDD}"
+
+echo "${GRN}partprobe${NC}"
 # make shure that sda partitions are actual
 partprobe /dev/${HDD}
 
+echo "${GRN}print current layout${NC}"
 parted --script /dev/${HDD} print
 
 # My partitioning:
@@ -31,7 +41,7 @@ parted --script /dev/${HDD} print
 #  5      34.4GB  193GB   159GB   btrfs           root
 #  6      193GB   1472GB  1279GB  btrfs
 
-
+echo "${RED}repartition${NC}"
 parted --script /dev/${HDD} -- \
     unit MiB \
     mklabel gpt \
@@ -52,9 +62,14 @@ parted --script /dev/${HDD} -- \
         name 6 home \
     print \
 
+echo "${GRN}partprobe again${NC}"
 partprobe /dev/${HDD}
 
+echo "${GRN}mkfs boot${NC}"
 mkfs.ext4 /dev/${HDD}3  -F -L boot
+echo "${GRN}mkswap${NC}"
 mkswap /dev/${HDD}4     -L swap
+echo "${GRN}root${NC}"
 mkfs.btrfs /dev/${HDD}5 -f -L root
+echo "${GRN}home${NC}"
 mkfs.btrfs /dev/${HDD}6 -f -L home
