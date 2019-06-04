@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+#    .---------- constant part!
+#    vvvv vvvv-- the code from above
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GRN='\033[1;32m'
+
 # use blkid or lsblk to check what disk you destroy
 
 if [ "$(whoami)" != "root" ]; then
@@ -7,21 +13,17 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-#    .---------- constant part!
-#    vvvv vvvv-- the code from above
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-GRN='\033[1;32m'
+
 
 
 HDD=sda
-echo "${GRN}Default drive ${NC} ${HDD}"
+echo -e "${GRN}Default drive ${NC} ${HDD}"
 
-echo "${GRN}partprobe${NC}"
+echo -e "${GRN}partprobe${NC}"
 # make shure that sda partitions are actual
 partprobe /dev/${HDD}
 
-echo "${GRN}print current layout${NC}"
+echo -e "${GRN}print current layout${NC}"
 parted --script /dev/${HDD} print
 
 # My partitioning:
@@ -33,6 +35,8 @@ parted --script /dev/${HDD} print
 # sda5 - root      - ~160 GiB - btrfs root "/" partition (for snapper), should be enough
 # sda6 - home      - rest of drive - btrfs "/home" partition. last 8% of SSD are reserved
 
+# $ parted --script /dev/${HDD} print
+# Output:
 # Number  Start   End     Size    File system     Name       Flags
 #  1      1049kB  4194kB  3146kB                  bios_grub  bios_grub
 #  2      4194kB  537MB   533MB                   esp        boot, esp
@@ -41,7 +45,7 @@ parted --script /dev/${HDD} print
 #  5      34.4GB  193GB   159GB   btrfs           root
 #  6      193GB   1472GB  1279GB  btrfs
 
-echo "${RED}repartition${NC}"
+echo -e "${RED}repartition${NC}"
 parted --script /dev/${HDD} -- \
     unit MiB \
     mklabel gpt \
@@ -62,14 +66,14 @@ parted --script /dev/${HDD} -- \
         name 6 home \
     print \
 
-echo "${GRN}partprobe again${NC}"
+echo -e "${GRN}partprobe again${NC}"
 partprobe /dev/${HDD}
 
-echo "${GRN}mkfs boot${NC}"
+echo -e "${GRN}mkfs boot${NC}"
 mkfs.ext4 /dev/${HDD}3  -F -L boot
-echo "${GRN}mkswap${NC}"
+echo -e "${GRN}mkswap${NC}"
 mkswap /dev/${HDD}4     -L swap
-echo "${GRN}root${NC}"
+echo -e "${GRN}root${NC}"
 mkfs.btrfs /dev/${HDD}5 -f -L root
-echo "${GRN}home${NC}"
+echo -e "${GRN}home${NC}"
 mkfs.btrfs /dev/${HDD}6 -f -L home
