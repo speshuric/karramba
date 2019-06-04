@@ -22,9 +22,12 @@ HOME_PART=sda6
 MNT=/tmp/mnt
 
 arch_chroot() { #{{{
-  arch-chroot $MNT /bin/bash -c "${1}"
+  arch-chroot ${MNT} /bin/bash -c "${1}"
 }
 #}}}
+
+pacman -Sy archlinux-keyring
+pacstrap ${MNT} base-devel parted btrfs-progs f2fs-tools net-tools
 
 # arch-chroot ${MNT}
 
