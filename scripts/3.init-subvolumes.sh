@@ -10,7 +10,18 @@ fi
 # - installed OpenSuse fstab
 # - https://en.opensuse.org/SDB:BTRFS#Default_Subvolumes
 
+# - Затычка для MBR
+BIOS_GRUB_PART=sda1
+# - EFI Service Partition
+ESP_PART=sda2
+# - /boot Partition
+ROOT_PART=sda3
+# - swp Partition
+ROOT_PART=sda4
+# - root Partition
 ROOT_PART=sda5
+# - /home Partition
+HOME_PART=sda6
 TMP_MNT=/tmp/mnt
 
 # Create a new btrfs filesystem
@@ -85,13 +96,12 @@ btrfs subvolume set-default ${TMP_MNT}/@
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
 
-HOME_PART=sda6
+
 
 # Create a new btrfs filesystem
 # mkfs.btrfs /dev/${HOME_PART}
 
-# Mount subvolid=0 subvolume to temp mount
-TMP_MNT=/tmp/mnt
+
 mkdir -p ${TMP_MNT}
 mount /dev/${HOME_PART} -o subvolid=0 ${TMP_MNT}
 ############################

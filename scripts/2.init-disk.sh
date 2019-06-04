@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-#    .---------- constant part!
-#    vvvv vvvv-- the code from above
+#    .---------- constant part
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 GRN='\033[1;32m'
@@ -9,12 +8,9 @@ GRN='\033[1;32m'
 # use blkid or lsblk to check what disk you destroy
 
 if [ "$(whoami)" != "root" ]; then
-	echo "Root privileges required"
+	echo -e "${RED}Root privileges required${NC}"
 	exit 1
 fi
-
-
-
 
 HDD=sda
 echo -e "${GRN}Default drive ${NC} ${HDD}"
