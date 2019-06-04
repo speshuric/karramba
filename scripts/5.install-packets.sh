@@ -27,7 +27,7 @@ arch_chroot() { #{{{
 #}}}
 
 pacman -Sy archlinux-keyring
-pacstrap ${MNT} base-devel parted btrfs-progs f2fs-tools net-tools
+pacstrap ${MNT} base linux-headers base-devel parted btrfs-progs f2fs-tools net-tools
 
 # arch-chroot ${MNT}
 
