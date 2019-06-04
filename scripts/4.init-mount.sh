@@ -38,4 +38,7 @@ mkdir -p ${MNT}/home    && mount -o subvol=@home/        /dev/${HOME_PART} ${MNT
 
 mkdir --parents ${MNT}/etc
 mkdir --parents ${MNT}/proc
+mkdir --parents ${MNT}/sys
+mkdir --parents ${MNT}/dev
+
 genfstab -U ${MNT} >> ${MNT}/etc/fstab
