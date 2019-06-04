@@ -21,7 +21,8 @@ reflector --verbose --connection-timeout 1 --cache-timeout 1 -a 1 -l 50 -p https
 echo "Install git"
 pacman -Sy --noconfirm git
 
-if !(systemctl -q is-active some_application.service)
+# если ssh не запущен, то устанавливаем пароль root и стартуем
+if !(systemctl -q is-active sshd.service)
     then
 
     echo "Set root password"
@@ -33,9 +34,6 @@ if !(systemctl -q is-active some_application.service)
     echo "ip adrr"
     ip -4 address | grep global
 fi
-
-
-
 
 # для установщика manjaro
 # sudo pacman-mirrors --api --protocol https --timeout 1
