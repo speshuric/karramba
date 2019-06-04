@@ -22,7 +22,7 @@ HOME_PART=sda6
 MNT=/tmp/mnt
 
 arch_chroot() { #{{{
-  arch-chroot $MOUNTPOINT /bin/bash -c "${1}"
+  arch-chroot $MNT /bin/bash -c "${1}"
 }
 #}}}
 
