@@ -63,6 +63,21 @@ cd ./karramba/scripts
 ./1.init-install.sh
 ```
 
+From gitlab:
+```
+wget https://gitlab.com/speshuric/karramba/-/archive/master/karramba-master.tar.gz -O - | tar xz
+mv karramba-* karramba 
+cd ./karramba/scripts
+./1.init-install.sh
+```
+
+Through `git clone`:
+```
+git clone https://gitlab.com/speshuric/karramba.git
+cd ./karramba/scripts
+./1.init-install.sh
+```
+
 
 
 ## Important!!! Всё ниже шлак и черновики
