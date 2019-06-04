@@ -57,7 +57,10 @@ cd ./karramba/scripts
 
 From gitlab:
 ```
-wget https://gitlab.com/speshuric/karramba/-/archive/master/karramba-master.tar.gz
+wget https://gitlab.com/speshuric/karramba/-/archive/master/karramba-master.tar.gz -O - | tar xz
+mv karramba-* karramba 
+cd ./karramba/scripts
+./1.init-install.sh
 ```
 
 
