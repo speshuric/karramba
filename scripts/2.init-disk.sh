@@ -48,7 +48,7 @@ parted --script /dev/${HDD} -- \
         name 4 swap \
     mkpart primary btrfs      32GiB  96GiB \
         name 5 root \
-    mkpart primary btrfs      80GiB  92% \
+    mkpart primary btrfs      96GiB  92% \
         name 6 home \
     print \
 
