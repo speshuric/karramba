@@ -5,8 +5,21 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
+# - Затычка для MBR
+BIOS_GRUB_PART=sda1
+# - EFI Service Partition
+ESP_PART=sda2
+# - /boot Partition
+BOOT_PART=sda3
+# - swp Partition
+ROOT_PART=sda4
+# - root Partition
 ROOT_PART=sda5
-MNT=/mnt
+# - /home Partition
+HOME_PART=sda6
+
+MNT=/tmp/mnt
+
 
 mkdir -p ${MNT}           && mount                               /dev/${ROOT_PART} ${MNT}
 mkdir -p ${MNT}/opt       && mount -o subvol=@/opt               /dev/${ROOT_PART} ${MNT}/opt

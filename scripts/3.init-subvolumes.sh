@@ -15,7 +15,7 @@ BIOS_GRUB_PART=sda1
 # - EFI Service Partition
 ESP_PART=sda2
 # - /boot Partition
-ROOT_PART=sda3
+BOOT_PART=sda3
 # - swp Partition
 ROOT_PART=sda4
 # - root Partition
