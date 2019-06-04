@@ -37,4 +37,5 @@ HOME_PART=sda6
 mkdir -p ${MNT}/home    && mount -o subvol=@home/        /dev/${HOME_PART} ${MNT}/home
 
 mkdir ${MNT}/etc
+mkdir ${MNT}/proc
 genfstab -U ${MNT} >> ${MNT}/etc/fstab
