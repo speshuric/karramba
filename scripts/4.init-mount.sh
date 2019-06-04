@@ -40,5 +40,6 @@ mkdir --parents ${MNT}/etc
 mkdir --parents ${MNT}/proc
 mkdir --parents ${MNT}/sys
 mkdir --parents ${MNT}/dev
+mkdir --parents ${MNT}/run
 
 genfstab -U ${MNT} >> ${MNT}/etc/fstab
