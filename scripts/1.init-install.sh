@@ -31,7 +31,7 @@ pacman -Sy --noconfirm reflector
 
 log "Configure Mirrorlist"
 reflector \
-    --verbose\
+    #--verbose\
     --connection-timeout 1\
     --cache-timeout 1\
     --age 10\
