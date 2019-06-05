@@ -1,40 +1,61 @@
 #!/usr/bin/env bash
 
+#    .---------- constant part
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GRN='\033[1;32m'
+
+function log {
+    echo -e "${GRN}$1${NC}"
+}
+function err {
+    echo -e "${RED}$1${NC}"
+    exit 1
+}
+
+
 if [ "$(whoami)" != "root" ]; then
-	echo "Root privileges required"
-	exit 1
+	err "Root privileges required"
 fi
 
-echo "Select Keymap"
+log "Select Keymap"
 # ls -R /usr/share/kbd/keymaps | grep "map.gz" | sed 's/\.map\.gz//g' | sort
 loadkeys us
+loadkeys ru
+setfont cyr-sun16
 
-echo "Add space for tools"
+log "Add space for tools"
 mount -o remount,size=2G /run/archiso/cowspace
 
-echo "Install reflector"
+log "Install reflector"
 pacman -Sy --noconfirm reflector
 
-echo "Configure Mirrorlist"
-reflector --verbose --connection-timeout 1 --cache-timeout 1 -a 1 -l 50 -p https --sort rate --save /etc/pacman.d/mirrorlist
+log "Configure Mirrorlist"
+reflector \
+    --verbose\
+    --connection-timeout 1\
+    --cache-timeout 1\
+    --age 10\
+    --latest 100\
+    --protocol https\
+    --sort rate\
+    --save /etc/pacman.d/mirrorlist
 
-echo "Install git"
+log "Install git"
 pacman -Sy --noconfirm git
 
 # если ssh не запущен, то устанавливаем пароль root и стартуем
 if !(systemctl -q is-active sshd.service)
     then
 
-    echo "Set root password"
+    log "Set root password"
     passwd
 
-    echo "Start ssh"
+    log "Start ssh"
     systemctl start sshd.service
 
-    echo "ip adrr"
+    log "ip adrr"
     ip -4 address | grep global
 fi
 
-# для установщика manjaro
-# sudo pacman-mirrors --api --protocol https --timeout 1
-# touch /tmp/.btrfsroot
+

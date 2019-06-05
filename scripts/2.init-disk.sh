@@ -1,25 +1,30 @@
 #!/usr/bin/env bash
 
-#    .---------- constant part
+# constant part
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 GRN='\033[1;32m'
 
-# use blkid or lsblk to check what disk you destroy
+function log {
+    echo -e "${GRN}$1${NC}"
+}
+function err {
+    echo -e "${RED}$1${NC}"
+    exit 1
+}
 
 if [ "$(whoami)" != "root" ]; then
-	echo -e "${RED}Root privileges required${NC}"
-	exit 1
+    err "Root privileges required"
 fi
 
 HDD=sda
-echo -e "${GRN}Default drive ${NC} ${HDD}"
+log "Default drive ${NC} ${HDD}"
 
-echo -e "${GRN}partprobe${NC}"
+log "partprobe${NC}"
 # make shure that sda partitions are actual
 partprobe /dev/${HDD}
 
-echo -e "${GRN}print current layout${NC}"
+log "print current layout"
 parted --script /dev/${HDD} print
 
 # My partitioning:
@@ -41,7 +46,7 @@ parted --script /dev/${HDD} print
 #  5      34.4GB  193GB   159GB   btrfs           root
 #  6      193GB   1472GB  1279GB  btrfs
 
-echo -e "${RED}repartition${NC}"
+log "repartition"
 parted --script /dev/${HDD} -- \
     unit MiB \
     mklabel gpt \
@@ -62,14 +67,31 @@ parted --script /dev/${HDD} -- \
         name 6 home \
     print \
 
-echo -e "${GRN}partprobe again${NC}"
+log "partprobe again"
 partprobe /dev/${HDD}
 
-echo -e "${GRN}mkfs boot${NC}"
-mkfs.ext4 /dev/${HDD}3  -F -L boot
-echo -e "${GRN}mkswap${NC}"
-mkswap /dev/${HDD}4     -L swap
-echo -e "${GRN}root${NC}"
-mkfs.btrfs /dev/${HDD}5 -f -L root
-echo -e "${GRN}home${NC}"
-mkfs.btrfs /dev/${HDD}6 -f -L home
+# - Затычка для MBR
+BIOS_GRUB_PART=${HDD}1
+# - EFI Service Partition
+ESP_PART=${HDD}2
+# - /boot Partition
+BOOT_PART=${HDD}3
+# - swp Partition
+SWAP_PART=${HDD}4
+# - root Partition
+ROOT_PART=${HDD}5
+# - /home Partition
+HOME_PART=${HDD}6
+TMP_MNT=/tmp/mnt
+
+log "Create filesystems:"
+log "  ESP"
+mkfs.fat -F32 ${BIOS_GRUB_PART}
+log "  mkfs boot"
+mkfs.ext4 /dev/${BOOT_PART}  -F -L boot
+log "  mkswap"
+mkswap /dev/${SWAP_PART}     -L swap
+log "  root"
+mkfs.btrfs /dev/${ROOT_PART} -f -L root
+log "  home"
+mkfs.btrfs /dev/${HOME_PART} -f -L home
