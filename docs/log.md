@@ -19,7 +19,7 @@ TODOS:
 1. Arch можно ставить через SSH ([1](https://unix.stackexchange.com/questions/352139/how-to-setup-ssh-access-to-arch-linux-iso-livecd-booted-computer), [2](https://wiki.archlinux.org/index.php/Install_from_SSH_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9))) .
 ```bash
 # выполняется под root потому что ничего другого в Arch ISO нет
-passwd manjaro
+passwd
 systemctl start sshd.service
 ```
 2. C manjaro чуть по-другому. Там надо менять пароль и подключаться под пользователем `manjaro`. 
