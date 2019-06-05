@@ -20,7 +20,7 @@ fi
 HDD=sda
 log "Default drive ${NC} ${HDD}"
 
-log "partprobe${NC}"
+log "partprobe"
 # make shure that sda partitions are actual
 partprobe /dev/${HDD}
 

@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
 
+# constant part
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GRN='\033[1;32m'
+
+function log {
+    echo -e "${GRN}$1${NC}"
+}
+function err {
+    echo -e "${RED}$1${NC}"
+    exit 1
+}
+
 if [ "$(whoami)" != "root" ]; then
-	echo "Root privileges required"
-	exit 1
+    err "Root privileges required"
 fi
 
 #Subvolume list taken from 
@@ -10,18 +22,19 @@ fi
 # - installed OpenSuse fstab
 # - https://en.opensuse.org/SDB:BTRFS#Default_Subvolumes
 
+HDD=sda
 # - Затычка для MBR
-BIOS_GRUB_PART=sda1
+BIOS_GRUB_PART=${HDD}1
 # - EFI Service Partition
-ESP_PART=sda2
+ESP_PART=${HDD}2
 # - /boot Partition
-BOOT_PART=sda3
+BOOT_PART=${HDD}3
 # - swp Partition
-SWAP_PART=sda4
+SWAP_PART=${HDD}4
 # - root Partition
-ROOT_PART=sda5
+ROOT_PART=${HDD}5
 # - /home Partition
-HOME_PART=sda6
+HOME_PART=${HDD}6
 TMP_MNT=/tmp/mnt
 
 # Create a new btrfs filesystem
@@ -29,6 +42,7 @@ TMP_MNT=/tmp/mnt
 
 # Mount subvolid=0 subvolume to temp mount
 
+log "root - mount subvolid=0"
 mkdir -p ${TMP_MNT}
 mount /dev/${ROOT_PART} -o subvolid=0 ${TMP_MNT}
 ############################
@@ -37,7 +51,7 @@ mount /dev/${ROOT_PART} -o subvolid=0 ${TMP_MNT}
 btrfs subvolume create ${TMP_MNT}/@
 
 # Create the non-snapshotted subvolumes
-
+log "root - create subvols"
 btrfs subvolume create ${TMP_MNT}/@/opt
 btrfs subvolume create ${TMP_MNT}/@/srv
 btrfs subvolume create ${TMP_MNT}/@/tmp
@@ -94,13 +108,17 @@ btrfs subvolume set-default ${TMP_MNT}/@
 #btrfs subvolume set-default ${TMP_MNT}/@
 
 # Finished - unmount complete filesystem
+log "root - umount subvolid=0"
 umount ${TMP_MNT}
 
+log "home - mount subvolid=0"
 mkdir -p ${TMP_MNT}
 mount /dev/${HOME_PART} -o subvolid=0 ${TMP_MNT}
 ############################
 
+log "home - create subvols"
 btrfs subvolume create ${TMP_MNT}/@home
 
+log "home - umount subvolid=0"
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
