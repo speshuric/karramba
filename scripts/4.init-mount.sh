@@ -54,7 +54,7 @@ log "mount home"
 mkdir -p ${MNT}/home      && mount -o subvol=@home/              /dev/${HOME_PART} ${MNT}/home
 
 log "mount efi"
-mkdir -p ${MNT}/efi       && mount                               /dev/${BIOS_GRUB_PART} ${MNT}/efi
+mkdir -p ${MNT}/efi       && mount                               /dev/${ESP_PART} ${MNT}/efi
 
 log "make other dirs"
 mkdir -p ${MNT}/etc
