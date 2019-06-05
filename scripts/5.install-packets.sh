@@ -5,19 +5,6 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-HDD=sda
-# - Затычка для MBR
-BIOS_GRUB_PART=sda1
-# - EFI Service Partition
-ESP_PART=sda2
-# - /boot Partition
-BOOT_PART=sda3
-# - swp Partition
-ROOT_PART=sda4
-# - root Partition
-ROOT_PART=sda5
-# - /home Partition
-HOME_PART=sda6
 
 MNT=/tmp/mnt
 
@@ -47,16 +34,4 @@ arch_chroot "sed -i 's/#Fallback//' /etc/systemd/timesyncd.conf"
 arch_chroot "echo \"FallbackNTP=0.pool.ntp.org 1.pool.ntp.org 0.fr.pool.ntp.org\" >> /etc/systemd/timesyncd.conf"
 arch_chroot "systemctl enable systemd-timesyncd.service"
 arch_chroot "hwclock --systohc --utc"
-
-#install base
-
-#choose kernels
-#CHOSEN_KERNELS=linux414 linux418 
-#CHOSEN_AUR=yaourt base-devel 
-#CHOSEN_KERNEL_MODULES=linux414-headers linux414-virtualbox-guest-modules linux418-headers linux418-virtualbox-guest-modules 
-
-
-# manjaro-chroot /mnt "grub-install --target=i386-pc --recheck /dev/${HDD}"
-
-
 
