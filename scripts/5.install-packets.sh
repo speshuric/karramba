@@ -34,4 +34,3 @@ arch_chroot "sed -i 's/#Fallback//' /etc/systemd/timesyncd.conf"
 arch_chroot "echo \"FallbackNTP=0.pool.ntp.org 1.pool.ntp.org 0.fr.pool.ntp.org\" >> /etc/systemd/timesyncd.conf"
 arch_chroot "systemctl enable systemd-timesyncd.service"
 arch_chroot "hwclock --systohc --utc"
-
