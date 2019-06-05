@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#    .---------- constant part
+# constant part
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 GRN='\033[1;32m'
@@ -13,9 +13,8 @@ function err {
     exit 1
 }
 
-
 if [ "$(whoami)" != "root" ]; then
-	err "Root privileges required"
+    err "Root privileges required"
 fi
 
 log "Select Keymap"

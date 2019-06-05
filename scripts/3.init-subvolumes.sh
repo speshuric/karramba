@@ -17,7 +17,7 @@ ESP_PART=sda2
 # - /boot Partition
 BOOT_PART=sda3
 # - swp Partition
-ROOT_PART=sda4
+SWAP_PART=sda4
 # - root Partition
 ROOT_PART=sda5
 # - /home Partition
@@ -95,12 +95,6 @@ btrfs subvolume set-default ${TMP_MNT}/@
 
 # Finished - unmount complete filesystem
 umount ${TMP_MNT}
-
-
-
-# Create a new btrfs filesystem
-# mkfs.btrfs /dev/${HOME_PART}
-
 
 mkdir -p ${TMP_MNT}
 mount /dev/${HOME_PART} -o subvolid=0 ${TMP_MNT}
