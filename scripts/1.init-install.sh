@@ -35,10 +35,12 @@ reflector \
     --connection-timeout 1\
     --cache-timeout 1\
     --age 10\
-    --latest 100\
+    --latest 50\
     --protocol https\
     --sort rate\
     --save /etc/pacman.d/mirrorlist
+
+
 
 log "Install git"
 pacman -Sy --noconfirm git
