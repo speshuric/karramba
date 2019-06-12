@@ -35,10 +35,11 @@ reflector \
     --connection-timeout 1\
     --cache-timeout 10\
     --age 10\
-    --latest 200\
+    --latest 100\
     --number 20\
     --protocol https\
     --sort rate\
+    --threads 10\
     --save /etc/pacman.d/mirrorlist
 
 
