@@ -75,6 +75,7 @@ cd ./karramba/scripts
 
 Through `git clone`:
 ```
+pacman -Sy git
 git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts
 ./1.init-install.sh

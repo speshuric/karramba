@@ -33,9 +33,10 @@ log "Configure Mirrorlist"
 reflector \
     --verbose\
     --connection-timeout 1\
-    --cache-timeout 1\
+    --cache-timeout 10\
     --age 10\
-    --latest 50\
+    --latest 200\
+    --number 20\
     --protocol https\
     --sort rate\
     --save /etc/pacman.d/mirrorlist
