@@ -86,11 +86,12 @@ TMP_MNT=/tmp/mnt
 
 log "Create filesystems:"
 log "  ESP"
-mkfs.fat /dev/${ESP_PART} -F32 -S 4096 
+# mkfs.fat /dev/${ESP_PART} -F32 -S 4096 
+mkfs.fat /dev/${ESP_PART} -F32  -n esp
 log "  mkfs boot"
 mkfs.ext4 /dev/${BOOT_PART}  -F -L boot
 log "  mkswap"
-mkswap /dev/${SWAP_PART}     -L swap
+mkswap /dev/${SWAP_PART}        -L swap
 log "  root"
 mkfs.btrfs /dev/${ROOT_PART} -f -L root
 log "  home"
