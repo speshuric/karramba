@@ -54,7 +54,7 @@ parted --script /dev/${HDD} -- \
         set 1 bios_grub on \
         name 1 bios_grub \
     mkpart primary fat32      4MiB   512MiB \
-        set 2 esp on \
+        set 2 ESP on \
         set 2 boot on \
         name 2 esp \
     mkpart primary ext4       512MiB 5GiB \

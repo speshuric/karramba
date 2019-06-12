@@ -52,8 +52,8 @@ arch_chroot "hwclock --systohc --utc"
 log "set locale"
 
 
-arch_chroot "\"en_US.UTF-8 UTF-8\" > /etc/locale.gen"
-arch_chroot "\"ru_RU.UTF-8 UTF-8\" >> /etc/locale.gen"
+arch_chroot "en_US.UTF-8 UTF-8 > /etc/locale.gen"
+arch_chroot "ru_RU.UTF-8 UTF-8 >> /etc/locale.gen"
 arch_chroot "locale-gen"
 
 log "Указываем язык системы"
