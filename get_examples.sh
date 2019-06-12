@@ -18,4 +18,6 @@ git_update id101010/ansible-archlinux
 git_update pigmonkey/spark
 git_update jahrik/ansible-arch-workstation
 git_update v0rn/ansible-arch
+git_update dharmab/ansible-archlinux
+git_update mrkkrp/arch-workstation
 popd > /dev/null

@@ -18,7 +18,7 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-
+HDD=sda
 MNT=/tmp/mnt
 
 arch_chroot() { #{{{
@@ -27,7 +27,7 @@ arch_chroot() { #{{{
 #}}}
 
 log "update keyring"
-pacman -Sy archlinux-keyring
+pacman -Sy archlinux-keyring --noconfirm
 log "bootstrap"
 pacstrap ${MNT} base linux-headers base-devel parted btrfs-progs f2fs-tools net-tools
 
@@ -56,13 +56,27 @@ arch_chroot "echo \"en_US.UTF-8 UTF-8\" > /etc/locale.gen"
 arch_chroot "echo \"ru_RU.UTF-8 UTF-8\" >> /etc/locale.gen"
 arch_chroot "locale-gen"
 
-log "Указываем язык системы"
+log "locale.conf"
 arch_chroot "echo LANG=en_US.UTF-8 > /etc/locale.conf"
 arch_chroot "echo LC_TIME=ru_RU.UTF-8 >> /etc/locale.conf"
 
-log "Вписываем KEYMAP=ru FONT=cyr-sun16"
+log "vconsole.conf"
 arch_chroot "echo KEYMAP=ru >> /etc/vconsole.conf"
 arch_chroot "echo FONT=cyr-sun16 >> /etc/vconsole.conf"
+
+log "/etc/hostname"
 arch_chroot "echo myhostname >> /etc/hostname"
 
+#$ sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block keyboard encrypt lvm2 resume filesystems fsck)/' /etc/mkinitcpio.conf
+#$ mkinitcpio -p linux
+
+log "mkinitcpio"
 arch_chroot "mkinitcpio -p linux"
+
+log "grub"
+
+arch_chroot "pacman -S grub --noconfirm"
+arch_chroot "grub-install /dev/${HDD}"
+
+log "Обновляем grub.cfg"
+arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
