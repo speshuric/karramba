@@ -1,9 +1,0 @@
----
-- name: This is a hello-world example
-  vars:
-    root_password: 3141592
-  hosts: targets
-  remote_user: manjaro
-  tasks:
-  - name: Create a directory
-    file: path=hello_world state=directory

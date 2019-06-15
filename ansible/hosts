@@ -1,4 +1,0 @@
-#List of targets
-
-[targets]
-192.168.0.162 ansible_connection=ssh ansible_user=manjaro ansible_ssh_pass=3141592 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
