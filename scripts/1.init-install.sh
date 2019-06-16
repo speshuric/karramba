@@ -42,12 +42,10 @@ reflector \
     --threads 10\
     --save /etc/pacman.d/mirrorlist
 
-
-
 log "Install git"
 pacman -Sy --noconfirm git
 
-# если ssh не запущен, то устанавливаем пароль root и стартуем
+# if ssd is not started, set password and start it
 if !(systemctl -q is-active sshd.service)
     then
 

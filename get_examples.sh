@@ -20,4 +20,5 @@ git_update jahrik/ansible-arch-workstation
 git_update v0rn/ansible-arch
 git_update dharmab/ansible-archlinux
 git_update mrkkrp/arch-workstation
+git_update helmuthdu/aui
 popd > /dev/null

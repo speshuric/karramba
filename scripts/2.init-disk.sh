@@ -87,7 +87,7 @@ TMP_MNT=/tmp/mnt
 log "Create filesystems:"
 log "  ESP"
 # mkfs.fat /dev/${ESP_PART} -F32 -S 4096 
-mkfs.fat /dev/${ESP_PART} -F32  -n esp
+mkfs.fat /dev/${ESP_PART} -F32  -n ESP
 log "  mkfs boot"
 mkfs.ext4 /dev/${BOOT_PART}  -F -L boot
 log "  mkswap"

@@ -24,7 +24,7 @@ MNT=/tmp/mnt
 arch_chroot() { #{{{
   arch-chroot ${MNT} /bin/bash -c "${1}"
 }
-#}}}
+
 
 log "update keyring"
 pacman -Sy archlinux-keyring --noconfirm
@@ -50,7 +50,6 @@ arch_chroot "systemctl enable systemd-timesyncd.service"
 arch_chroot "hwclock --systohc --utc"
 
 log "set locale"
-
 
 arch_chroot "echo \"en_US.UTF-8 UTF-8\" > /etc/locale.gen"
 arch_chroot "echo \"ru_RU.UTF-8 UTF-8\" >> /etc/locale.gen"
