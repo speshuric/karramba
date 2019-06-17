@@ -28,6 +28,8 @@ mount -o remount,size=2G /run/archiso/cowspace
 
 log "Install reflector"
 pacman -Sy --noconfirm reflector
+log "Install git"
+pacman -Sy --noconfirm git
 
 log "Configure Mirrorlist"
 reflector \
@@ -42,21 +44,10 @@ reflector \
     --threads 10\
     --save /etc/pacman.d/mirrorlist
 
-log "Install git"
-pacman -Sy --noconfirm git
 
-# if ssd is not started, set password and start it
-if !(systemctl -q is-active sshd.service)
-    then
 
-    log "Set root password"
-    passwd
+log "ip adrr"
+ip -4 address | grep global
 
-    log "Start ssh"
-    systemctl start sshd.service
-
-    log "ip adrr"
-    ip -4 address | grep global
-fi
 
 
