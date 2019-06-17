@@ -52,6 +52,3 @@ To edit: `git clone https://gitlab.com/speshuric/karramba.git`
 [Long story](./docs/log.md) 
 
 
-
-
-- To setup mirrors 

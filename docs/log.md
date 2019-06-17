@@ -42,37 +42,6 @@ ssh root@192.168.0.xxx -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/nu
 
 Не забывать делать push в репозиторий перед скачиванием!
 
-```bash
-wget https://github.com/speshuric/karramba/tarball/master -O - | tar xz 
-mv speshuric-karramba-* karramba 
-cd ./karramba/scripts
-```
-
-Shorter: 
-```bash
-wget https://git.io/fjRjE -O - | tar xz 
-
-mv speshuric-karramba-* karramba 
-cd ./karramba/scripts
-./1.init-install.sh
-```
-
-From gitlab:
-```
-wget https://gitlab.com/speshuric/karramba/-/archive/master/karramba-master.tar.gz -O - | tar xz
-mv karramba-* karramba 
-cd ./karramba/scripts
-./1.init-install.sh
-```
-
-From gitlab:
-```
-wget https://gitlab.com/speshuric/karramba/-/archive/master/karramba-master.tar.gz -O - | tar xz
-mv karramba-* karramba 
-cd ./karramba/scripts
-./1.init-install.sh
-```
-
 Through `git clone`:
 ```
 pacman -Sy git
