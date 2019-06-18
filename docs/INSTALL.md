@@ -13,15 +13,15 @@ Stages of insatllation
 ## Mastering installation media.
 
 Your own installation media alloows following:
-[v] enable SSH by default
-[v] create `ansible_install` user to do installation
-[ ] create private/public key for ansible user (for key-based SSH)
-[ ] create private/public key for host (for known_hosts)
-[v] generated safe password
-[ ] disable `root` ssh access since we do not need it
-[ ] disable `root` autologon
-[v] install git, ansible 
-[v] get mirrorlist from current installation
+- [x] enable SSH by default
+- [x] create `ansible_install` user to do installation
+- [ ] create private/public key for ansible user (for key-based SSH)
+- [ ] create private/public key for host (for known_hosts)
+- [x] generated safe password
+- [ ] disable `root` ssh access since we do not need it
+- [ ] disable `root` autologon
+- [x] install git, ansible 
+- [x] get mirrorlist from current installation
 
 Optional:
 - set `keymaps`
