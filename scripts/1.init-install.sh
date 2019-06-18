@@ -17,14 +17,16 @@ if [ "$(whoami)" != "root" ]; then
     err "Root privileges required"
 fi
 
-log "Select Keymap"
+log "Set Keymap"
 # ls -R /usr/share/kbd/keymaps | grep "map.gz" | sed 's/\.map\.gz//g' | sort
-loadkeys us
 loadkeys ru
+# ls /usr/share/kbd/consolefonts
 setfont cyr-sun16
 
 log "Add space for tools"
 mount -o remount,size=2G /run/archiso/cowspace
+log "Update time"
+timedatectl set-ntp true
 
 log "Install reflector"
 pacman -Sy --noconfirm reflector
@@ -36,15 +38,13 @@ reflector \
     --verbose\
     --connection-timeout 1\
     --cache-timeout 10\
-    --age 10\
-    --latest 100\
+    --age 5\
+    --latest 70\
     --number 20\
     --protocol https\
     --sort rate\
     --threads 10\
     --save /etc/pacman.d/mirrorlist
-
-
 
 log "ip adrr"
 ip -4 address | grep global

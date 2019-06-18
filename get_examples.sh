@@ -27,5 +27,7 @@ git_update nsg/ansible-arch-install
 git_update lgaggini/ansible-arch
 
 git_update helmuthdu/aui
+git_update virtapi/LARS
+git_update lukesmithxyz/larbs
 
 popd > /dev/null
