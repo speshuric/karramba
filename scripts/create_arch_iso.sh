@@ -57,6 +57,7 @@ customize_airootfs=${archisodir}/airootfs/root/customize_airootfs.sh
 echo "! id ${ansibleuser} && useradd -m -g users -G wheel -s /bin/zsh ${ansibleuser}" >> ${customize_airootfs}
 echo "echo ${ansibleuser}:${ansiblepassword} | chpasswd"                              >> ${customize_airootfs}
 echo "echo root:${rootpassword} | chpasswd"                                           >> ${customize_airootfs}
+echo "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
 
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
