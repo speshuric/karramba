@@ -48,7 +48,10 @@ passwd
 systemctl start sshd.socket
 ```
 6. Check network
-7. Login through SSH to `root@VM`
+7. Login through SSH to `root@VM` (`VM` means address of this VM): 
+```sh
+ssh root@VM -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
 8. Execute:
 ```sh
 pacman -Sy git
@@ -57,14 +60,15 @@ cd ./karramba/scripts
 ./1.init-install.sh
 ```
 9. Start ISO creation. Last line should be smth lite  `Arch installation ISO created in /tmp/archiso_9kFCk/out/`
-11. You can disconnect from VM
-10. To copy output folder to control machile:
+10. You can disconnect from VM
+11. To copy output folder to control machile:
 ```sh
-scp -r root@VM:/tmp/archiso_9kFCk/out ~/iso
+scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@VM:/tmp/archiso_9kFCk/out ~/iso
 ```
+12. Check output
 
 Notes:
-- 
+- `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid accumulation of one-time host keys. 
 
 ### In current arch installation
 
