@@ -56,7 +56,7 @@ ssh root@VM -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 > **Note:** See below about options!
 8. Execute:
 ```sh
-pacman -Syyu
+pacman -Syy
 pacman -Sy git
 git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts

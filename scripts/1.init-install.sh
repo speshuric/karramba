@@ -47,7 +47,7 @@ reflector \
     --save /etc/pacman.d/mirrorlist
 
 log "Update pacman database"
-pacman -Syyu
+pacman -Syy
 
 log "ip adrr"
 ip -4 address | grep global
