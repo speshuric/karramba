@@ -46,6 +46,9 @@ reflector \
     --threads 10\
     --save /etc/pacman.d/mirrorlist
 
+log "Update pacman database"
+pacman -Syyu
+
 log "ip adrr"
 ip -4 address | grep global
 
