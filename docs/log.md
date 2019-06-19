@@ -54,6 +54,24 @@ cd ./karramba/scripts
 
 ## Important!!! Всё ниже шлак и черновики
 
+### Goals
+
+#### Reproducible install
+Current process of installation Arch Linux involve a lot of manual and non-idempotent steps. So it is fragile and we can not be sure that installation is reproducible. It is important for many purposes (benchmarking, installation test envioment creation, etc)
+If installed configuration is complicated enough, than installation process could look like some kind of magic.
+Sometimes Vagrant is solution, but there are some exceptions:
+- bare metal installation needed
+- tests of OS install process itself
+- 
+
+#### Review all settings before install
+#### Simple and fast install
+#### Remote install
+#### Scalable install
+
+### Why not Manjaro
+
+
 Так! Короче! Я передумал! Ставить будем не ебанутыми скриптами, а через ansible. 
 
 Краткая идея: есть инсталляционная флешка или образ arch или manjaro. Грузимся, запускаем сеть, даём ssh и... И всё остальное делает снаружи playbook ansible.

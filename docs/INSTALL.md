@@ -20,6 +20,7 @@ Your own installation media alloows following:
 - [x] generated safe password
 - [ ] disable `root` ssh access since we do not need it
 - [ ] disable `root` autologon
+- [ ] set `hostname`
 - [x] install git, ansible 
 - [x] get mirrorlist from current installation
 
@@ -35,36 +36,39 @@ Optional:
 This is recommended way to create 'clean' media. 
 
 1. Create VM. Minimal requirements: 
-    - CPU: 2 (create ISO media contains paralellable CPU tasks)
+    - CPU: 2 (create ISO media contains tasks scaled by CPU)
     - RAM: 2GB, *4GB recommended*
     - HDD: Not used at all
     - LAN: Check that you can connect SSH(22) to this VM
-2. Download arch installation media
-3. Verify arch installation media
-4. Boot in VM
-5. Change `root` password
+2. [Download](https://www.archlinux.org/download/) arch installation media
+3. [Verify](https://wiki.archlinux.org/index.php/Installation_guide#Verify_signature) arch installation media
+4. Boot in VM with standard Arch Installation ISO
+5. Change `root` password, start SSH
 ```sh
 passwd
 systemctl start sshd.socket
 ```
-6. Check network
+6. Check network (`ping 8.8.8.8` or something similar)
 7. Login through SSH to `root@VM` (`VM` means address of this VM): 
 ```sh
 ssh root@VM -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 ```
+> **Note:** See below about options!
 8. Execute:
 ```sh
+pacman -Syyu
 pacman -Sy git
 git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts
 ./1.init-install.sh
 ```
-9. Start ISO creation. Last line should be smth lite  `Arch installation ISO created in /tmp/archiso_9kFCk/out/`
+9. Start ISO creation. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_9kFCk/out/`
 10. You can disconnect from VM
 11. To copy output folder to control machile:
 ```sh
 scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@VM:/tmp/archiso_9kFCk/out ~/iso
 ```
+> **Note:** See below about options!
 12. Check output
 
 Notes:
@@ -72,7 +76,7 @@ Notes:
 
 ### In current arch installation
 
-
+### In current arch installation
 
 ## Boot with installation media and set up pre install.
 
