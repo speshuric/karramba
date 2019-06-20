@@ -8,6 +8,15 @@ fi
 
 # For details read https://wiki.archlinux.org/index.php/Archiso
 
+# Set parameters
+
+# generate users and passwords:
+rootpassword=$(openssl rand -base64 15)
+ansiblepassword=$(openssl rand -base64 15)
+ansibleuser=ansible_install
+ansiblehostname=ansiblearchiso
+
+
 # Prepare installation package
 pacman -Sy archiso --noconfirm
 
@@ -32,10 +41,6 @@ for i in {${bootentrycd},${bootentryusb}}; do
     sed -i '/^options/ s/$/ console=ttyS0/' $i
 done
 
-# generate users and passwords:
-rootpassword=$(openssl rand -base64 15)
-ansiblepassword=$(openssl rand -base64 15)
-ansibleuser=ansible_install
 # generate ssh keys with empty passphrase
 ssh-keygen -q -N "" -f            ${archisodir}/out/${ansibleuser}_key
 ssh-keygen -q -N "" -t dsa     -f ${archisodir}/out/ssh_host_dsa_key
@@ -57,16 +62,22 @@ customize_airootfs=${archisodir}/airootfs/root/customize_airootfs.sh
 echo "! id ${ansibleuser} && useradd -m -g users -G wheel -s /bin/zsh ${ansibleuser}" >> ${customize_airootfs}
 echo "echo ${ansibleuser}:${ansiblepassword} | chpasswd"                              >> ${customize_airootfs}
 echo "echo root:${rootpassword} | chpasswd"                                           >> ${customize_airootfs}
-echo "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
+echo "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"                             >> ${customize_airootfs}
 
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
 echo "root:${rootpassword}"            >> ${archisodir}/out/passwords
 
+# remove autologon
+echo "rm /etc/systemd/system/getty@tty1.service.d/autologin.conf"                     >> ${customize_airootfs}
+
 # Enable sshd.socket
-echo "systemctl enable sshd.socket" >> ${customize_airootfs}
+echo "systemctl enable sshd.socket"                                                   >> ${customize_airootfs}
 # Diasble root in SSH
-echo 'sed -e "s/^PermitRootLogin yes/#PermitRootLogin yes/" /etc/ssh/sshd_config' >> ${customize_airootfs}
+echo 'sed -e "s/^PermitRootLogin yes/#PermitRootLogin yes/" /etc/ssh/sshd_config'     >> ${customize_airootfs}
+
+# set /etc/hostname"
+echo "echo ${ansiblehostname} >> /etc/hostname"                                       >> ${customize_airootfs}
 
 # If using the socket service, you will need to edit the unit file 
 # if you want it to listen on a port other than the default 22: 

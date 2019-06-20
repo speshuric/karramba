@@ -62,9 +62,13 @@ git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts
 ./1.init-install.sh
 ```
-9. Start ISO creation. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_9kFCk/out/`
-10. You can disconnect from VM
-11. To copy output folder to control machile:
+9. Start ISO creation:
+```sh
+./
+``` 
+10. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_9kFCk/out/`
+11. You can disconnect from VM
+12. To copy output folder to control machile:
 ```sh
 scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@VM:/tmp/archiso_9kFCk/out ~/iso
 ```

@@ -43,7 +43,7 @@ reflector \
     --number 20\
     --protocol https\
     --sort rate\
-    --threads 10\
+    --threads 5\
     --save /etc/pacman.d/mirrorlist
 
 log "Update pacman database"
