@@ -19,7 +19,7 @@ Your own installation media alloows following:
 - [ ] create private/public key for host (for known_hosts)
 - [x] generated safe password
 - [ ] disable `root` ssh access since we do not need it
-- [ ] disable `root` autologon
+- [x] disable `root` autologon
 - [ ] set `hostname`
 - [x] install git, ansible 
 - [x] get mirrorlist from current installation
@@ -68,15 +68,19 @@ cd ./karramba/scripts
 ``` 
 10. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_NNNNN/out/`
 11. You can disconnect from VM
-12. To copy output folder to control machile:
+12. To copy output folder to control machine execute from control machine:
 ```sh
-# on control machine
 mkdir ~/iso
 scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@VM:/tmp/archiso_NNNNN/out/* ~/iso/
 ```
 > **Note:** See below about options!
-12. Check output
-
+13. Check output. Directory `~/iso/` should contain:
+    - `archlinux-2019.06.20-x86_64.iso` - installation image
+    - `passwords` - randomly generated passwords for `root` and `ansible_install`. Usually you don't have to use it, except case when network is not operating properly
+    - `ansible_install_key` - private key for `ansible_install` user
+    - `ansible_install_key.pub` - public key for `ansible_install` user
+    - `ssh_host_dsa_key`, `ssh_host_dsa_key.pub`, `ssh_host_ecdsa_key`, `ssh_host_ecdsa_key.pub`, `ssh_host_ed25519_key`, `ssh_host_ed25519_key.pub`, `ssh_host_rsa_key`, `ssh_host_rsa_key.pub` - keys for `known_hosts`
+    
 Notes:
 - `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid accumulation of one-time host keys. 
 

@@ -71,28 +71,32 @@ cp ${archisodir}/out/ssh_host_* ${archisodir}/airootfs/etc/ssh/
 
 customize_airootfs=${archisodir}/airootfs/root/customize_airootfs.sh
 
+function add_customize_airootfs {
+    echo $1 >> ${customize_airootfs}
+}
+
 # add ansible user, set password for root and ansible
-echo "! id ${ansibleuser} && useradd -m -g users -G wheel -s /bin/zsh ${ansibleuser}" >> ${customize_airootfs}
-echo "echo ${ansibleuser}:${ansiblepassword} | chpasswd"                              >> ${customize_airootfs}
-echo "echo root:${rootpassword} | chpasswd"                                           >> ${customize_airootfs}
+add_customize_airootfs "! id ${ansibleuser} && useradd -m -g users -G wheel -s /bin/zsh ${ansibleuser}"
+add_customize_airootfs "echo ${ansibleuser}:${ansiblepassword} | chpasswd"
+add_customize_airootfs "echo root:${rootpassword} | chpasswd"
 # grant sudo to ansible user through group %wheel
-echo "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"                             >> ${customize_airootfs}
+add_customize_airootfs "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
 
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
 echo "root:${rootpassword}"            >> ${archisodir}/out/passwords
 
 # remove autologon
-echo "rm /etc/systemd/system/getty@tty1.service.d/autologin.conf"                     >> ${customize_airootfs}
+add_customize_airootfs "rm /etc/systemd/system/getty@tty1.service.d/autologin.conf"
 
 # Enable sshd.socket
-echo "systemctl enable sshd.socket"                                                   >> ${customize_airootfs}
+add_customize_airootfs "systemctl enable sshd.socket"
 
 # Diasble root in SSH
-echo 'sed -e "s/^PermitRootLogin yes/#PermitRootLogin yes/" /etc/ssh/sshd_config'     >> ${customize_airootfs}
+add_customize_airootfs 'sed -e "s/^PermitRootLogin yes/#PermitRootLogin yes/" /etc/ssh/sshd_config'
 
 # set /etc/hostname"
-echo "echo ${ansiblehostname} >> /etc/hostname"                                       >> ${customize_airootfs}
+add_customize_airootfs "echo ${ansiblehostname} > /etc/hostname"
 
 # If using the socket service, you will need to edit the unit file 
 # if you want it to listen on a port other than the default 22: 
