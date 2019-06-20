@@ -1,6 +1,18 @@
 #!/usr/bin/bash
 # author v0rn: https://github.com/v0rn/ansible-arch/blob/master/create_arch_iso.sh
 
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GRN='\033[1;32m'
+
+function log {
+    echo -e "${GRN}$1${NC}"
+}
+function err {
+    echo -e "${RED}$1${NC}"
+    exit 1
+}
+
 if [ ${UID} != 0 ]; then
     echo "$0 must be run as root"
     exit 1
@@ -17,7 +29,7 @@ ansibleuser=ansible_install
 ansiblehostname=ansiblearchiso
 
 
-# Prepare installation package
+log "Prepare installation package"
 pacman -Sy archiso --noconfirm
 
 # Make archisodir with mktemp:
@@ -29,6 +41,7 @@ bootentryusb="${bootentrydir}/archiso-x86_64-usb.conf"
 
 archisosource="/usr/share/archiso/configs/releng"
 
+log "Prepare installation directory ${archisodir}"
 # Create directory
 mkdir ${archisodir}
 mkdir ${archisodir}/out
@@ -94,8 +107,8 @@ echo "ansible"   >> ${packages}
 # Copy mirrorlist to /root
 cp /etc/pacman.d/mirrorlist ${archisodir}/airootfs/root/
 
-# Build image
+log "Build image"
 cd ${archisodir}
 ./build.sh -v
 
-echo "Arch installation ISO created in ${archisodir}/out/"
+log "Arch installation ISO created in ${archisodir}/out/"
