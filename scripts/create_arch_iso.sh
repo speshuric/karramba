@@ -62,6 +62,7 @@ customize_airootfs=${archisodir}/airootfs/root/customize_airootfs.sh
 echo "! id ${ansibleuser} && useradd -m -g users -G wheel -s /bin/zsh ${ansibleuser}" >> ${customize_airootfs}
 echo "echo ${ansibleuser}:${ansiblepassword} | chpasswd"                              >> ${customize_airootfs}
 echo "echo root:${rootpassword} | chpasswd"                                           >> ${customize_airootfs}
+# grant sudo to ansible user through group %wheel
 echo "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"                             >> ${customize_airootfs}
 
 # copy passwords to out dir
@@ -73,6 +74,7 @@ echo "rm /etc/systemd/system/getty@tty1.service.d/autologin.conf"               
 
 # Enable sshd.socket
 echo "systemctl enable sshd.socket"                                                   >> ${customize_airootfs}
+
 # Diasble root in SSH
 echo 'sed -e "s/^PermitRootLogin yes/#PermitRootLogin yes/" /etc/ssh/sshd_config'     >> ${customize_airootfs}
 
