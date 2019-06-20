@@ -44,6 +44,7 @@ ssh root@192.168.0.xxx -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/nu
 
 Through `git clone`:
 ```
+pacman -Syy
 pacman -Sy git
 git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts

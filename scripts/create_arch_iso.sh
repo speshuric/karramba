@@ -39,7 +39,7 @@ log "Prepare installation package"
 pacman -Sy archiso --noconfirm
 
 # Make archisodir with mktemp:
-archisodir=$(mktemp -d -t archiso_XXXXX)
+archisodir=$(mktemp -d -t archiso_XXXXX --tmpdir="$HOME")
 
 bootentrydir="${archisodir}/efiboot/loader/entries"
 bootentrycd="${bootentrydir}/archiso-x86_64-cd.conf"

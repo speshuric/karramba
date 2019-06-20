@@ -64,7 +64,7 @@ cd ./karramba/scripts
 ```
 9. Start ISO creation:
 ```sh
-./
+./create_arch_iso.sh
 ``` 
 10. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_NNNNN/out/`
 11. You can disconnect from VM
