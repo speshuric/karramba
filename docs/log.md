@@ -71,6 +71,8 @@ Sometimes Vagrant is solution, but there are some exceptions:
 
 ### Why not Manjaro
 
+### Why "Karramba"
+"Karramba" is the word I said have been installing Arch Linux third time during the day.
 
 Так! Короче! Я передумал! Ставить будем не ебанутыми скриптами, а через ansible. 
 

@@ -20,7 +20,7 @@ Your own installation media alloows following:
 - [x] generated safe password
 - [ ] disable `root` ssh access since we do not need it
 - [x] disable `root` autologon
-- [ ] set `hostname`
+- [x] set `hostname`
 - [x] install git, ansible 
 - [x] get mirrorlist from current installation
 

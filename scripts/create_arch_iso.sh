@@ -119,7 +119,7 @@ echo "reflector" >> ${packages}
 echo "ansible"   >> ${packages}
 
 # Copy mirrorlist to /root
-cp /etc/pacman.d/mirrorlist ${archisodir}/airootfs/root/
+cp /etc/pacman.d/mirrorlist ${archisodir}/airootfs/etc/pacman.d/mirrorlist
 
 log "Build image"
 cd ${archisodir}
