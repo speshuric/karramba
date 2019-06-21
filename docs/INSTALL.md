@@ -4,7 +4,10 @@ This describes install Arch Linux with ansible playbooks.
 Goals:
 - Repeatable unattended installs
 - Scalable installs
-- 
+- Dry and clean installed system
+- Full control over installation process
+- Simple (in Arch's sense of simplicity) and easy for user install
+- Fast install
 
 # Oerview of setup process
 
@@ -20,7 +23,7 @@ Your own installation media alloows following:
 - [x] generated safe password
 - [ ] disable `root` ssh access since we do not need it
 - [x] disable `root` autologon
-- [x] set `hostname`
+- [x] set `hostname` to identify hosts booted with this ISO
 - [x] install git, ansible 
 - [x] get mirrorlist from current installation
 
@@ -66,7 +69,7 @@ cd ./karramba/scripts
 ```sh
 ./create_arch_iso.sh
 ``` 
-10. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_NNNNN/out/`
+10. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_XXXXX/out/`
 11. You can disconnect from VM
 12. To copy output folder to control machine execute from control machine:
 ```sh
@@ -75,14 +78,18 @@ scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@VM:/tmp/
 ```
 > **Note:** See below about options!
 13. Check output. Directory `~/iso/` should contain:
-    - `archlinux-2019.06.20-x86_64.iso` - installation image
+    - `archlinux-YYYY.MM.DD-x86_64.iso` - installation image
     - `passwords` - randomly generated passwords for `root` and `ansible_install`. Usually you don't have to use it, except case when network is not operating properly
     - `ansible_install_key` - private key for `ansible_install` user
     - `ansible_install_key.pub` - public key for `ansible_install` user
     - `ssh_host_dsa_key`, `ssh_host_dsa_key.pub`, `ssh_host_ecdsa_key`, `ssh_host_ecdsa_key.pub`, `ssh_host_ed25519_key`, `ssh_host_ed25519_key.pub`, `ssh_host_rsa_key`, `ssh_host_rsa_key.pub` - keys for `known_hosts`
+14. Save all these files
+15. Copy     
     
 Notes:
-- `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid accumulation of one-time host keys. 
+- `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid accumulation of one-time host keys.
+- **Do not** publish private keys and passwords. Keep it secure and private.
+- Avoid publish ISO file. It contains your generated trusted private key of host and public key of `ansible_install` user.
 
 ### In current arch installation
 > TODO:
