@@ -40,9 +40,10 @@ This is recommended way to create 'clean' media.
 
 1. Create VM. Minimal requirements: 
     - CPU: 2 (create ISO media contains tasks scaled by CPU)
-    - RAM: 2GB, *4GB recommended*
+    - RAM: 4GB, *more recommended*
+        - By default `cowspace` used to build iso. If you can not allocate such amount of RAM you can mount persistance drive and change `archisodir` in `create_arch_iso.sh`
     - HDD: Not used at all
-    - LAN: Check that you can connect SSH(22) to this VM
+    - LAN: Check that you can connect SSH(22) to this VM from control machine
 2. [Download](https://www.archlinux.org/download/) arch installation media
 3. [Verify](https://wiki.archlinux.org/index.php/Installation_guide#Verify_signature) arch installation media
 4. Boot in VM with standard Arch Installation ISO
