@@ -16,12 +16,13 @@ function check_size {
   avail=$(df --output=avail $1 | tail -n 1)
   if [$avail -ge 1048576]; then
     newsize=4G
+    log "$1 is now ${avail} - upsiged to $newsize"
     mount -o remount,size=${newsize} /run/archiso/cowspace
   fi
 }
 
 if [ ${UID} != 0 ]; then
-    echo "$0 must be run as root"
+    err "$0 must be run as root"
     exit 1
 fi
 
