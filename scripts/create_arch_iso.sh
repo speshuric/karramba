@@ -104,7 +104,7 @@ add_customize_airootfs "echo ${ansibleuser}:${ansiblepassword} | chpasswd"
 
 # grant sudo to ansible user through group %wheel
 add_customize_airootfs "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
-add_customize_airootfs "sed -i '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
+# WAT???: add_customize_airootfs "sed -i '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
 echo "root:${rootpassword}"            >> ${archisodir}/out/passwords
