@@ -16,7 +16,7 @@ function check_size {
   avail=$(df --output=avail $1 | tail -n 1)
   if [$avail -ge 1048576]; then
     newsize=4G
-    log "$1 is now ${avail} - upsiged to $newsize"
+    log "$1 is now ${avail} - upsiged to ${newsize}"
     mount -o remount,size=${newsize} /run/archiso/cowspace
   fi
 }
@@ -104,7 +104,7 @@ add_customize_airootfs "echo ${ansibleuser}:${ansiblepassword} | chpasswd"
 
 # grant sudo to ansible user through group %wheel
 add_customize_airootfs "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
-add_customize_airootfs "sed -i 's '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
+add_customize_airootfs "sed -i '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
 echo "root:${rootpassword}"            >> ${archisodir}/out/passwords
