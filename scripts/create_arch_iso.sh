@@ -12,11 +12,20 @@ function err {
     echo -e "${RED}$1${NC}"
     exit 1
 }
+function check_size {
+  avail=$(df --output=avail ~ | tail -n 1)
+  if [$avail -ge 1048576]
+    newsize=2G
+    mount -o remount,size=${newsize} /run/archiso/cowspace
+  fi
+}
 
 if [ ${UID} != 0 ]; then
     echo "$0 must be run as root"
     exit 1
 fi
+
+
 
 # For details read https://wiki.archlinux.org/index.php/Archiso
 
@@ -48,6 +57,10 @@ bootentryusb="${bootentrydir}/archiso-x86_64-usb.conf"
 archisosource="/usr/share/archiso/configs/releng"
 archisodir_out="${archisodir}/out"
 airootfs="${archisodir}/airootfs"
+
+check_size
+#newsize=2G
+#mount -o remount,size=${newsize} /run/archiso/cowspace
 
 log "Prepare installation directory ${archisodir}"
 # Create directory
@@ -86,11 +99,11 @@ function add_customize_airootfs {
 add_customize_airootfs "echo root:${rootpassword} | chpasswd"
 add_customize_airootfs "! id ${ansibleuser} && useradd -m -g users -G wheel -s /bin/zsh ${ansibleuser}"
 add_customize_airootfs "echo ${ansibleuser}:${ansiblepassword} | chpasswd"
-add_customize_airootfs "ls /home/"
+# add_customize_airootfs "ls /home/"
 
 # grant sudo to ansible user through group %wheel
 add_customize_airootfs "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
-
+add_customize_airootfs "sed -i 's '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
 echo "root:${rootpassword}"            >> ${archisodir}/out/passwords

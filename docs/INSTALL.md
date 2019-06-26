@@ -15,7 +15,7 @@ Stages of insatllation
 
 ## Mastering installation media.
 
-Your own installation media alloows following:
+Diiferences between standard installation media and remastered following:
 - [x] enable SSH by default
 - [x] create `ansible_install` user to do installation
 - [ ] create private/public key for ansible user (for key-based SSH)
@@ -26,6 +26,8 @@ Your own installation media alloows following:
 - [x] set `hostname` to identify hosts booted with this ISO
 - [x] install git, ansible 
 - [x] get mirrorlist from current installation
+- [ ] add cowspace
+- [ ] reduce syslinux bootloader menu waiting timeout
 
 Optional:
 - set `keymaps`
