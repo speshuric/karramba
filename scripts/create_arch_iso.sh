@@ -13,7 +13,7 @@ function err {
     exit 1
 }
 function check_size {
-  avail=$(df --output=avail ~ | tail -n 1)
+  avail=$(df --output=avail $1 | tail -n 1)
   if [$avail -ge 1048576]
     newsize=4G
     mount -o remount,size=${newsize} /run/archiso/cowspace
