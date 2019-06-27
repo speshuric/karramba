@@ -23,8 +23,8 @@ loadkeys ru
 # ls /usr/share/kbd/consolefonts
 setfont cyr-sun16
 
-log "Add space for tools"
-mount -o remount,size=4G /run/archiso/cowspace
+#log "Add space for tools"
+#mount -o remount,size=4G /run/archiso/cowspace
 log "Update time"
 timedatectl set-ntp true
 
