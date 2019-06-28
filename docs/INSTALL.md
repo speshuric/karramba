@@ -58,7 +58,7 @@ systemctl start sshd.socket
 6. Check network (`ping 8.8.8.8` or something similar)
 7. Login through SSH to `root@archiso` (`archiso` means this VM): 
 ```shell
-ssh root@VM -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+ssh root@archiso -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 ```
 > **Note:** See below about options!
 8. Execute:

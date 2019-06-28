@@ -14,8 +14,10 @@ function err {
 }
 function check_size {
   avail=$(df --output=avail $1 | tail -n 1)
-  if [$avail -ge 1048576]; then
-    newsize=4G
+  local newsize=4G
+  local minsize=1048576
+  if [ ${avail} -lt ${minsize} ]; then
+    local newsize=4G
     log "$1 is now ${avail} - upsiged to ${newsize}"
     mount -o remount,size=${newsize} /run/archiso/cowspace
   fi
@@ -59,9 +61,7 @@ archisosource="/usr/share/archiso/configs/releng"
 archisodir_out="${archisodir}/out"
 airootfs="${archisodir}/airootfs"
 
-check_size
-#newsize=2G
-#mount -o remount,size=${newsize} /run/archiso/cowspace
+
 
 log "Prepare installation directory ${archisodir}"
 # Create directory
@@ -69,6 +69,8 @@ mkdir -p ${archisodir}
 mkdir -p ${archisodir_out}
 mkdir -p ${airootfs}/etc/skel/.ssh
 mkdir -p ${airootfs}/etc/ssh
+
+check_size ${archisodir}
 
 # Copy archiso contents to directory
 cp -r ${archisosource}/* ${archisodir}
