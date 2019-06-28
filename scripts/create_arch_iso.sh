@@ -85,8 +85,11 @@ ssh-keygen -q -N "" -t rsa     -f ${archisodir}/out/ssh_host_rsa_key
 ssh-keygen -q -N "" -t ecdsa   -f ${archisodir}/out/ssh_host_ecdsa_key
 ssh-keygen -q -N "" -t ed25519 -f ${archisodir}/out/ssh_host_ed25519_key
 
+# put host's keys
 cp ${archisodir}/out/ssh_host_* ${archisodir}/airootfs/etc/ssh/
+# put ansibleuser's public key to skeleton
 cp ${archisodir}/out/${ansibleuser}_key.pub ${airootfs}/etc/skel/.ssh/authorized_keys
+
 # NOTES:
 
 
@@ -102,9 +105,15 @@ add_customize_airootfs "! id ${ansibleuser} && useradd -m -g users -G wheel -s /
 add_customize_airootfs "echo ${ansibleuser}:${ansiblepassword} | chpasswd"
 # add_customize_airootfs "ls /home/"
 
-# grant sudo to ansible user through group %wheel
-add_customize_airootfs "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
-# WAT???: add_customize_airootfs "sed -i '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
+# grant sudo to ansible user through group %wheel:
+# since password is random and user ansibleuser is not used after installation,
+# allow sudo without password in our ISO
+add_customize_airootfs "sed -i '/%wheel ALL=(ALL) NOPASSWD: ALL/s/^#//' /etc/sudoers"
+# following line enforce using password
+#add_customize_airootfs "sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers"
+# check suoers
+add_customize_airootfs "! (visudo -c -f /etc/sudoers) && echo \"sudoers is not correct\""
+
 # copy passwords to out dir
 echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
 echo "root:${rootpassword}"            >> ${archisodir}/out/passwords
@@ -116,11 +125,12 @@ add_customize_airootfs "rm /etc/systemd/system/getty@tty1.service.d/autologin.co
 add_customize_airootfs "systemctl enable sshd.socket"
 
 # Diasble root in SSH
-add_customize_airootfs 'echo PermitRootLogin no >> /etc/ssh/sshd_config'
+add_customize_airootfs "sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config"
 
 # set /etc/hostname"
 add_customize_airootfs "echo ${ansiblehostname} > /etc/hostname"
 
+# WAT???: add_customize_airootfs "sed -i '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
 
 # If using the socket service, you will need to edit the unit file 
 # if you want it to listen on a port other than the default 22: 
