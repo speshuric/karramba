@@ -146,6 +146,6 @@ echo "MENU SHIFTKEY" >>${archisodir}/syslinux/archiso_head.cfg
 
 log "Build image"
 cd ${archisodir}
-./build.sh -v -N ansiblehostname
+./build.sh -v -N ${ansiblehostname}
 
 log "Arch installation ISO created in ${archisodir}/out/"
