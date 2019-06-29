@@ -1,6 +1,6 @@
 # ansible-arch
 
-This describes install Arch Linux with ansible playbooks. 
+This document describes how to install Arch Linux with ansible playbooks. 
 Goals:
 - Repeatable unattended installs
 - Scalable installs
@@ -12,6 +12,10 @@ Goals:
 # Oerview of setup process
 
 Stages of installation
+- Create installation media
+- Install before `chroot`
+- Install before first boot
+- Polish
 
 ## Mastering installation media.
 
@@ -20,7 +24,7 @@ Diiferences between standard installation media and remastered following:
 - [x] create `ansible_install` user to do installation
 - [x] `ansible_install` added to sudoers and can `sudo` without password
 - [x] create private/public key for ansible user (for key-based SSH)
-- [ ] create private/public key for host (for known_hosts)
+- [x] create private/public key for host (for known_hosts)
 - [x] generated safe password
 - [x] disable `root` ssh access since we do not need it
 - [x] disable `root` autologon
@@ -63,8 +67,7 @@ ssh root@archiso -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 > **Note:** See below about options!
 8. Execute:
 ```shell
-pacman -Syy
-pacman -Sy git
+pacman -Syy git
 git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts
 ./1.init-install.sh
@@ -73,7 +76,7 @@ cd ./karramba/scripts
 ```shell
 ./create_arch_iso.sh
 ``` 
-10. Last line should be smth like  `Arch installation ISO created in /tmp/archiso_XXXXX/out/`
+10. Last line should be smth like  `Arch installation ISO created in /root/archiso_XXXXX/out/`
 11. Check output. Output directory from previous step should contain:
     - `archlinux-YYYY.MM.DD-x86_64.iso` - installation image
     - `passwords` - randomly generated passwords for `root` and `ansible_install`. Usually you don't have to use it, except case when network is not operating properly
@@ -84,7 +87,7 @@ cd ./karramba/scripts
 13. Copy output folder to control machine execute from control machine:
 ```shell
 mkdir ~/iso
-scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@VM:/archiso_NNNNN/out/* ~/iso/
+scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@archiso:/root/archiso_NNNNN/out/ ~/iso/
 ```
 > **Note:** See below about options!
 14. `ssh` ~/.ssh/authorized_keys
