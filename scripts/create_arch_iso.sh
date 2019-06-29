@@ -5,14 +5,14 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 GRN='\033[1;32m'
 
-function log {
-    echo -e "${GRN}$1${NC}"
+function log() {
+  echo -e "${GRN}$1${NC}"
 }
-function err {
-    echo -e "${RED}$1${NC}"
-    exit 1
+function err() {
+  echo -e "${RED}$1${NC}"
+  exit 1
 }
-function check_size {
+function check_size() {
   avail=$(df --output=avail $1 | tail -n 1)
   local newsize=4G
   local minsize=1048576
@@ -23,8 +23,8 @@ function check_size {
 }
 
 if [ ${UID} != 0 ]; then
-    err "$0 must be run as root"
-    exit 1
+  err "$0 must be run as root"
+  exit 1
 fi
 
 # For details read https://wiki.archlinux.org/index.php/Archiso
@@ -71,14 +71,14 @@ cp -r ${archisosource}/* ${archisodir}
 
 # Add console device
 for i in {${bootentrycd},${bootentryusb}}; do
-    sed -i '/^options/ s/$/ console=ttyS0/' $i
+  sed -i '/^options/ s/$/ console=ttyS0/' $i
 done
 
 # generate ssh keys with empty passphrase
-ssh-keygen -q -N ""            -f ${archisodir}/out/${ansibleuser}_key
-ssh-keygen -q -N "" -t dsa     -f ${archisodir}/out/ssh_host_dsa_key
-ssh-keygen -q -N "" -t rsa     -f ${archisodir}/out/ssh_host_rsa_key
-ssh-keygen -q -N "" -t ecdsa   -f ${archisodir}/out/ssh_host_ecdsa_key
+ssh-keygen -q -N "" -f ${archisodir}/out/${ansibleuser}_key
+ssh-keygen -q -N "" -t dsa -f ${archisodir}/out/ssh_host_dsa_key
+ssh-keygen -q -N "" -t rsa -f ${archisodir}/out/ssh_host_rsa_key
+ssh-keygen -q -N "" -t ecdsa -f ${archisodir}/out/ssh_host_ecdsa_key
 ssh-keygen -q -N "" -t ed25519 -f ${archisodir}/out/ssh_host_ed25519_key
 
 # put host's keys
@@ -88,11 +88,10 @@ cp ${archisodir}/out/${ansibleuser}_key.pub ${airootfs}/etc/skel/.ssh/authorized
 
 # NOTES:
 
-
 customize_airootfs=${archisodir}/airootfs/root/customize_airootfs.sh
 
-function add_customize_airootfs {
-    echo $1 >> ${customize_airootfs}
+function add_customize_airootfs() {
+  echo $1 >>${customize_airootfs}
 }
 
 # add ansible user, set password for root and ansible
@@ -111,8 +110,8 @@ add_customize_airootfs "sed -i '/%wheel ALL=(ALL) NOPASSWD: ALL/s/^#//' /etc/sud
 add_customize_airootfs "! (visudo -c -f /etc/sudoers) && echo \"sudoers is not correct\""
 
 # copy passwords to out dir
-echo "${ansibleuser}:$ansiblepassword" >> ${archisodir}/out/passwords
-echo "root:${rootpassword}"            >> ${archisodir}/out/passwords
+echo "${ansibleuser}:$ansiblepassword" >>${archisodir}/out/passwords
+echo "root:${rootpassword}" >>${archisodir}/out/passwords
 
 # remove autologon
 add_customize_airootfs "rm /etc/systemd/system/getty@tty1.service.d/autologin.conf"
@@ -128,21 +127,25 @@ add_customize_airootfs "echo ${ansiblehostname} > /etc/hostname"
 
 # WAT???: add_customize_airootfs "sed -i '/APPEND archisobasedir=%INSTALL_DIR% archisolabel=%ARCHISO_LABEL%' "
 
-# If using the socket service, you will need to edit the unit file 
-# if you want it to listen on a port other than the default 22: 
+# If using the socket service, you will need to edit the unit file
+# if you want it to listen on a port other than the default 22:
 # https://wiki.archlinux.org/index.php/OpenSSH
 
 # Add packages
 packages=${archisodir}/packages.x86_64
-echo "git"       >> ${packages}
-echo "reflector" >> ${packages}
-echo "ansible"   >> ${packages}
+echo "git" >>${packages}
+echo "reflector" >>${packages}
+echo "ansible" >>${packages}
 
 # Copy mirrorlist to /root
 cp /etc/pacman.d/mirrorlist ${archisodir}/airootfs/etc/pacman.d/mirrorlist
 
+# syslinux: Exit the menu system immediately unless
+# either the Shift or the Alt key is pressed, or Caps Lock or Scroll Lock is set.
+echo "MENU SHIFTKEY" >>${archisodir}/syslinux/archiso_head.cfg
+
 log "Build image"
 cd ${archisodir}
-./build.sh -v
+./build.sh -v -N ansiblehostname
 
 log "Arch installation ISO created in ${archisodir}/out/"
