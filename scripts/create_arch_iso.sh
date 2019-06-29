@@ -17,7 +17,6 @@ function check_size {
   local newsize=4G
   local minsize=1048576
   if [ ${avail} -lt ${minsize} ]; then
-    local newsize=4G
     log "$1 is now ${avail} - upsiged to ${newsize}"
     mount -o remount,size=${newsize} /run/archiso/cowspace
   fi
@@ -27,8 +26,6 @@ if [ ${UID} != 0 ]; then
     err "$0 must be run as root"
     exit 1
 fi
-
-
 
 # For details read https://wiki.archlinux.org/index.php/Archiso
 
@@ -46,7 +43,6 @@ ansiblepassword=$(openssl rand -base64 15)
 ansibleuser=ansible_install
 ansiblehostname=ansiblearchiso
 
-
 log "Prepare installation package"
 pacman -Sy archiso --noconfirm
 
@@ -60,8 +56,6 @@ bootentryusb="${bootentrydir}/archiso-x86_64-usb.conf"
 archisosource="/usr/share/archiso/configs/releng"
 archisodir_out="${archisodir}/out"
 airootfs="${archisodir}/airootfs"
-
-
 
 log "Prepare installation directory ${archisodir}"
 # Create directory
