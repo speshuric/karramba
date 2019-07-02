@@ -63,6 +63,7 @@ mkdir -p ${archisodir}
 mkdir -p ${archisodir_out}
 mkdir -p ${airootfs}/etc/skel/.ssh
 mkdir -p ${airootfs}/etc/ssh
+mkdir -p ${airootfs}/etc/pacman.d
 
 check_size ${archisodir}
 
@@ -85,6 +86,7 @@ ssh-keygen -q -N "" -t ed25519 -f ${archisodir}/out/ssh_host_ed25519_key
 cp ${archisodir}/out/ssh_host_* ${archisodir}/airootfs/etc/ssh/
 # put ansibleuser's public key to skeleton
 cp ${archisodir}/out/${ansibleuser}_key.pub ${airootfs}/etc/skel/.ssh/authorized_keys
+chmod u=rw,go= ~/.ssh/${airootfs}/etc/skel/.ssh/authorized_keys
 
 # NOTES:
 

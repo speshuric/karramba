@@ -90,11 +90,17 @@ mkdir ~/iso
 scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@archiso:/root/archiso_NNNNN/out/ ~/iso/
 ```
 > **Note:** See below about options!
-14. `ssh` ~/.ssh/authorized_keys
-15. `known_hosts`: 
+14. `known_hosts`
+15. Test ISO. Create new VM, attach new ISO file as CD. Check ssh connection:
+```shell
+ssh ansible_install@ansiblearchiso -i ~/iso/out/ansible_install_key
+```
+
+**That's all!** Now you have ISO image that could be used to install arch via SSH and ansible. 
+  
     
 Notes:
-- `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid accumulation of one-time host keys.
+- `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid pollution of `known_hosts` by one-time host keys.
 - **Do not** publish private keys and passwords. Keep it secure and private.
 - Avoid publish ISO file. It contains your generated trusted private key of host and public key of `ansible_install` user.
 - Password authentication in SSH for user `ansible_install` is **not** disabled.  
