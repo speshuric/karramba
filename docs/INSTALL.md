@@ -97,8 +97,19 @@ ssh ansible_install@ansiblearchiso -i ~/iso/out/ansible_install_key
 ```
 
 **That's all!** Now you have ISO image that could be used to install arch via SSH and ansible. 
-  
-    
+
+- To connect VM booted with this ISO in local network:
+```shell
+ssh ansible_install@ansiblearchiso -i /path/to/ansible_install_key
+```
+Here we use the fact that the host name is given as `ansiblearchiso`. 
+- If you need connect via Internet (cloud provider for example) and `ansiblearchiso` is not recognized:
+    - add VM to `hosts` as `ansiblearchiso` (`known_hosts` will recognize this host)
+    - ...or add host key to `known_hosts` by external name `ansiblearchiso.my.domain`
+    - ...or use option `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null`
+- `root` is not permitted to logon via ssh, but a) `sudo` does not require password, b) you can switch to root by `sudo su`
+
+
 Notes:
 - `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` used to avoid pollution of `known_hosts` by one-time host keys.
 - **Do not** publish private keys and passwords. Keep it secure and private.
