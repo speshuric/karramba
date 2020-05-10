@@ -39,7 +39,7 @@ reflector \
     --connection-timeout 1\
     --cache-timeout 10\
     --age 5\
-    --latest 70\
+    --latest 170\
     --number 20\
     --protocol https\
     --sort rate\
