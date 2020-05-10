@@ -57,7 +57,7 @@ This is recommended way to create 'clean' media.
 5. Change `root` password, start SSH:
 ```shell
 passwd
-systemctl start sshd.socket
+systemctl start sshd.service
 ```
 6. Check network (`ping 8.8.8.8` or something similar)
 7. Login through SSH to `root@archiso` (`archiso` means this VM): 

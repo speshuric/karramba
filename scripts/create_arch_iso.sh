@@ -118,8 +118,8 @@ echo "root:${rootpassword}" >>${archisodir}/out/passwords
 # remove autologon
 add_customize_airootfs "rm /etc/systemd/system/getty@tty1.service.d/autologin.conf"
 
-# Enable sshd.socket
-add_customize_airootfs "systemctl enable sshd.socket"
+# Enable sshd.service
+add_customize_airootfs "systemctl enable sshd.service"
 
 # Diasble root in SSH
 add_customize_airootfs "sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config"
