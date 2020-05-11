@@ -44,7 +44,8 @@ reflector \
     --protocol https\
     --sort rate\
     --threads 5\
-    --save /etc/pacman.d/mirrorlist
+    --save /etc/pacman.d/mirrorlist\
+    --country RU
 
 log "Update pacman database"
 pacman -Syy
