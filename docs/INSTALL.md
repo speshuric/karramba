@@ -67,7 +67,7 @@ ssh root@archiso -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 > **Note:** See below about options!
 8. Execute:
 ```shell
-pacman -Syy git
+pacman -Syy --noconfirm git
 git clone https://gitlab.com/speshuric/karramba.git
 cd ./karramba/scripts
 ./1.init-install.sh
