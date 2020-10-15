@@ -34,13 +34,14 @@ log "Install git"
 pacman -Sy --noconfirm git
 
 log "Configure Mirrorlist"
+#    --connection-timeout 1\
+#    --cache-timeout 10\
+#    --age 5\
+#    --latest 170\
+#    --number 20\
+
 reflector \
     --verbose\
-    --connection-timeout 1\
-    --cache-timeout 10\
-    --age 5\
-    --latest 170\
-    --number 20\
     --protocol https\
     --sort rate\
     --threads 5\
